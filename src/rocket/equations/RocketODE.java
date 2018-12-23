@@ -1,4 +1,4 @@
-package rocket.equation;
+package rocket.equations;
 
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.MaxCountExceededException;
@@ -10,10 +10,13 @@ public class RocketODE implements FirstOrderDifferentialEquations {
     private double mi;
     private double g;
 
-    public RocketODE(double k, double mi, double g) {
+    public RocketODE(double k, double g) {
         this.k = k;
-        this.mi = mi;
         this.g = g;
+    }
+
+    public void setMi(double mi) {
+        this.mi = mi;
     }
 
     @Override
