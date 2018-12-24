@@ -23,4 +23,9 @@ public class RocketParameters {
     public double getMass() {
         return mass;
     }
+
+    @Override
+    public String toString() {
+        return height+";"+velocity+";"+mass;
+    }
 }

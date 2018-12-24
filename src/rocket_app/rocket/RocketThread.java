@@ -2,6 +2,8 @@ package rocket_app.rocket;
 
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
+import rocket_app.data.GroundAltitudeException;
+import rocket_app.data.OutOfFuelException;
 
 public class RocketThread implements Runnable{
 
@@ -36,7 +38,16 @@ public class RocketThread implements Runnable{
     }
 
     public void updateRocketState(){
-        rocketState.updateParameters(equation,integrator,mi);
+        try {
+            rocketState.updateParameters(equation,integrator,mi);
+        } catch (GroundAltitudeException e) {
+            isRunning = false;
+            thread.interrupt();
+            System.out.println("Ground reached");
+        } catch (OutOfFuelException e) {
+            mi = 0;
+            System.out.println("Out of fuel");
+        }
     }
 
     @Override
