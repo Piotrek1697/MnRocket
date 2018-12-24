@@ -1,4 +1,4 @@
-package rocket.equations;
+package rocket_app.equations;
 
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
@@ -16,9 +16,9 @@ public class RocketTester {
         double[] start = new double[]{50000,-150,2730.14};
         double[] stop = new double[] {0,-2000,1000};
 
-        ((RocketODE) rocketODE).setMi(-16.5);
+        ((RocketODE) rocketODE).setMi(0);
 
-        integrator.integrate(rocketODE,0,start,100,stop);
+        integrator.integrate(rocketODE,0,start,10,stop);
     }
 
 }

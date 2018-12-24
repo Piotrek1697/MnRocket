@@ -1,0 +1,49 @@
+package rocket_app.rocket;
+
+import javafx.collections.ObservableList;
+import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
+import org.apache.commons.math3.ode.FirstOrderIntegrator;
+import rocket_app.equations.RocketODE;
+import rocket_app.equations.RocketPath;
+
+public class RocketState {
+
+    private ObservableList<RocketParameters> rocketParameters;
+
+    public RocketState(ObservableList<RocketParameters> rocketParameters) {
+        this.rocketParameters = rocketParameters;
+    }
+
+    public void updateParameters(FirstOrderDifferentialEquations equation, FirstOrderIntegrator integrator, double mi){
+
+        RocketPath rocketPath = new RocketPath();
+        integrator.addStepHandler(rocketPath);
+
+        double[] start;
+        double[] stop = new double[] {0,-2000,1000};
+
+        if (rocketParameters.size() == 0)
+            start = new double[]{50000, -150, 2730.14};
+        else {
+            double height = rocketParameters.get(rocketParameters.size()-1).getHeight();
+            double velocity = rocketParameters.get(rocketParameters.size()-1).getVelocity();
+            double mass = rocketParameters.get(rocketParameters.size()-1).getMass();
+
+            start = new double[]{height,velocity,mass};
+        }
+
+        ((RocketODE) equation).setMi(mi);
+        integrator.integrate(equation,0,start,1,stop);
+
+        for (int i = 0; i < rocketPath.gethVal().size(); i++){
+            double h = rocketPath.gethVal().get(i);
+            double v = rocketPath.getvVal().get(i);
+            double m = rocketPath.getmVal().get(i);
+
+            rocketParameters.add(new RocketParameters(h,v,m));
+        }
+
+
+
+    }
+}

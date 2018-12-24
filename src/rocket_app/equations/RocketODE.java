@@ -1,4 +1,4 @@
-package rocket.equations;
+package rocket_app.equations;
 
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.MaxCountExceededException;
