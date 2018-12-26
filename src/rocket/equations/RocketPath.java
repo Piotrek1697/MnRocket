@@ -3,6 +3,7 @@ package rocket.equations;
 import org.apache.commons.math3.exception.MaxCountExceededException;
 import org.apache.commons.math3.ode.sampling.StepHandler;
 import org.apache.commons.math3.ode.sampling.StepInterpolator;
+import rocket.integrateThread.IntegrationResults;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -14,7 +15,7 @@ public class RocketPath implements StepHandler {
     private ArrayList<Double> vVal = new ArrayList<>();
     private ArrayList<Double> mVal = new ArrayList<>();
     private ArrayList<Double> tVal = new ArrayList<>();
-
+    IntegrationResults integrationResults;
 
     public ArrayList<Double> gethVal() {
         return hVal;
@@ -49,7 +50,14 @@ public class RocketPath implements StepHandler {
         tVal.add(t);
 
         saveToTxt("Test.txt",hVal,vVal,mVal,tVal);
+
     }
+
+    public IntegrationResults getIntegrationResults(){
+        integrationResults = new IntegrationResults(hVal,vVal,mVal);
+        return integrationResults;
+    }
+
 
     public static void saveToTxt(String fileName, ArrayList<Double> X, ArrayList<Double> V, ArrayList<Double> M, ArrayList<Double> T) {
         try (PrintWriter printWriter = new PrintWriter(fileName)) {
