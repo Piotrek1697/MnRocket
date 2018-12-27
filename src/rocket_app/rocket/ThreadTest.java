@@ -16,8 +16,8 @@ public class ThreadTest {
         FirstOrderIntegrator integrator = new EulerIntegrator(0.1);
 
 
-        RocketThread rocketThread = new RocketThread(rocketODE,integrator);
-        RocketState rocketState = new RocketState(rocketParameters);
+        RocketThread rocketThread = new RocketThread();
+        RocketState rocketState = new RocketState(rocketODE,integrator,rocketParameters,"Rocket1");
         rocketThread.addObserver(rocketState);
 
         rocketThread.start();

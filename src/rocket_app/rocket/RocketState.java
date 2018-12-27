@@ -7,17 +7,29 @@ import rocket_app.data.GroundAltitudeException;
 import rocket_app.data.OutOfFuelException;
 import rocket_app.equations.RocketODE;
 import rocket_app.equations.RocketPath;
+import rocket_app.model.Observer;
 
-public class RocketState {
+public class RocketState implements Observer {
 
     private ObservableList<RocketParameters> rocketParameters;
+    private FirstOrderDifferentialEquations equation;
+    private FirstOrderIntegrator integrator;
+    private String rocketName;
 
-    public RocketState(ObservableList<RocketParameters> rocketParameters) {
+    public RocketState(FirstOrderDifferentialEquations equation, FirstOrderIntegrator integrator, ObservableList<RocketParameters> rocketParameters, String rocketName) {
         this.rocketParameters = rocketParameters;
+        this.equation = equation;
+        this.integrator = integrator;
+        this.rocketName = rocketName;
     }
 
-    public void updateParameters(FirstOrderDifferentialEquations equation, FirstOrderIntegrator integrator, double mi) throws GroundAltitudeException, OutOfFuelException {
+    @Override
+    public String getObserverName() {
+        return rocketName;
+    }
 
+    @Override
+    public void updateParameters(double mi) throws GroundAltitudeException, OutOfFuelException {
         RocketPath rocketPath = new RocketPath();
         integrator.addStepHandler(rocketPath);
 

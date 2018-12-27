@@ -1,26 +1,55 @@
 package rocket_app.rocket;
 
-import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
-import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import rocket_app.data.GroundAltitudeException;
 import rocket_app.data.OutOfFuelException;
+import rocket_app.model.Observable;
+import rocket_app.model.Observer;
 
-public class RocketThread implements Runnable{
+import java.util.ArrayList;
+
+public class RocketThread implements Runnable, Observable {
 
     private Thread thread;
     private volatile boolean isRunning = false;
-    private RocketState rocketState;
-    private FirstOrderDifferentialEquations equation;
-    private FirstOrderIntegrator integrator;
     private double mi;
+    private volatile ArrayList<Observer> observerList = new ArrayList<>();
 
-    public RocketThread(FirstOrderDifferentialEquations equation, FirstOrderIntegrator integrator) {
-        this.equation = equation;
-        this.integrator = integrator;
+    public RocketThread() {
+
     }
 
     public void setMi(double mi) {
         this.mi = mi;
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        if (!observerList.contains(observer)) {
+            observerList.add(observer);
+        }
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        if (observerList.contains(observer)) {
+            observerList.remove(observer);
+        }
+    }
+
+    @Override
+    public void updateObservers() {
+        for (Observer o : observerList) {
+            try {
+                o.updateParameters(mi);
+            } catch (GroundAltitudeException e) {
+                isRunning = false;
+                thread.interrupt();
+                System.out.println("["+o.getObserverName()+"]"+"Ground reached");
+            } catch (OutOfFuelException e) {
+                mi = 0;
+                System.out.println("["+o.getObserverName()+"]"+"Out of fuel");
+            }
+        }
     }
 
     public void start(){
@@ -33,23 +62,6 @@ public class RocketThread implements Runnable{
         thread.interrupt();
     }
 
-    public void addObserver(RocketState rocketState){
-        this.rocketState = rocketState;
-    }
-
-    public void updateRocketState(){
-        try {
-            rocketState.updateParameters(equation,integrator,mi);
-        } catch (GroundAltitudeException e) {
-            isRunning = false;
-            thread.interrupt();
-            System.out.println("Ground reached");
-        } catch (OutOfFuelException e) {
-            mi = 0;
-            System.out.println("Out of fuel");
-        }
-    }
-
     @Override
     public void run() {
         isRunning = true;
@@ -57,7 +69,7 @@ public class RocketThread implements Runnable{
         while (isRunning){
 
             try {
-                updateRocketState();
+                updateObservers();
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
