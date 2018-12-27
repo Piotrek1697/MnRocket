@@ -1,4 +1,4 @@
-package rocket;
+package rocket_app.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
