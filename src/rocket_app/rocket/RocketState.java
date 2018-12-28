@@ -1,13 +1,17 @@
 package rocket_app.rocket;
 
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
+import rocket_app.animation.AnimationData;
 import rocket_app.data.GroundAltitudeException;
 import rocket_app.data.OutOfFuelException;
 import rocket_app.equations.RocketODE;
 import rocket_app.equations.RocketPath;
 import rocket_app.model.Observer;
+
+import java.util.ArrayList;
 
 public class RocketState implements Observer {
 
@@ -15,6 +19,8 @@ public class RocketState implements Observer {
     private FirstOrderDifferentialEquations equation;
     private FirstOrderIntegrator integrator;
     private String rocketName;
+    private ArrayList<RocketParameters> rocketParametersEverySecond = new ArrayList<>();
+    private AnimationData animationData = new AnimationData();
 
     public RocketState(FirstOrderDifferentialEquations equation, FirstOrderIntegrator integrator, ObservableList<RocketParameters> rocketParameters, String rocketName) {
         this.rocketParameters = rocketParameters;
@@ -34,28 +40,28 @@ public class RocketState implements Observer {
         integrator.addStepHandler(rocketPath);
 
         double[] start;
-        double[] stop = new double[] {0,-2000,1000};
+        double[] stop = new double[]{0, -2000, 1000};
 
         if (rocketParameters.size() == 0)
             start = new double[]{50000, -150, 2730.14};
         else {
-            double height = rocketParameters.get(rocketParameters.size()-1).getHeight();
-            double velocity = rocketParameters.get(rocketParameters.size()-1).getVelocity();
-            double mass = rocketParameters.get(rocketParameters.size()-1).getMass();
+            double height = rocketParameters.get(rocketParameters.size() - 1).getHeight();
+            double velocity = rocketParameters.get(rocketParameters.size() - 1).getVelocity();
+            double mass = rocketParameters.get(rocketParameters.size() - 1).getMass();
 
-            start = new double[]{height,velocity,mass};
+            start = new double[]{height, velocity, mass};
         }
 
         ((RocketODE) equation).setMi(mi);
-        integrator.integrate(equation,0,start,1,stop);
+        integrator.integrate(equation, 0, start, 1, stop);
 
-        for (int i = 0; i < rocketPath.gethVal().size(); i++){
+        for (int i = 0; i < rocketPath.gethVal().size(); i++) {
             double h = rocketPath.gethVal().get(i);
             double v = rocketPath.getvVal().get(i);
             double m = rocketPath.getmVal().get(i);
 
             if (h <= 0) {
-                rocketParameters.add(new RocketParameters(0,v,m));
+                rocketParameters.add(new RocketParameters(0, v, m));
                 throw new GroundAltitudeException("Rocket reached the ground");
             }
 
@@ -63,8 +69,19 @@ public class RocketState implements Observer {
                 throw new OutOfFuelException("Rocket is out of fuel");
             }
 
-            rocketParameters.add(new RocketParameters(h,v,m));
+            rocketParameters.add(new RocketParameters(h, v, m));
         }
 
+        sendParametersToAnimationData();
+    }
+
+    private void sendParametersToAnimationData(){
+        for (int i = 9; i >= 0; i--){
+            int paramSize = rocketParameters.size();
+            rocketParametersEverySecond.add(rocketParameters.get(paramSize-1-i));
+        }
+
+        animationData.setRocketParametersEverySecond(rocketParametersEverySecond);
+        rocketParametersEverySecond.clear();
     }
 }
