@@ -17,8 +17,8 @@ public class ThreadTest {
 
 
         RocketThread rocketThread = new RocketThread();
-        RocketState rocketState = new RocketState(rocketODE,integrator,rocketParameters,"Rocket1");
-        rocketThread.addObserver(rocketState);
+        //RocketState rocketState = new RocketState(rocketODE,integrator,rocketParameters,"Rocket1");
+        //rocketThread.addObserver(rocketState);
 
         rocketThread.start();
         try {

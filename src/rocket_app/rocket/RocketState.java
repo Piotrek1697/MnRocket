@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import rocket_app.animation.AnimationData;
+import rocket_app.animation.RocketAnimation;
 import rocket_app.data.GroundAltitudeException;
 import rocket_app.data.OutOfFuelException;
 import rocket_app.equations.RocketODE;
@@ -20,13 +21,14 @@ public class RocketState implements Observer {
     private FirstOrderIntegrator integrator;
     private String rocketName;
     private ArrayList<RocketParameters> rocketParametersEverySecond = new ArrayList<>();
-    private AnimationData animationData = new AnimationData();
+    private AnimationData animationData;
 
-    public RocketState(FirstOrderDifferentialEquations equation, FirstOrderIntegrator integrator, ObservableList<RocketParameters> rocketParameters, String rocketName) {
+    public RocketState(FirstOrderDifferentialEquations equation, FirstOrderIntegrator integrator, ObservableList<RocketParameters> rocketParameters, RocketAnimation rocketAnimation, String rocketName) {
         this.rocketParameters = rocketParameters;
         this.equation = equation;
         this.integrator = integrator;
         this.rocketName = rocketName;
+        this.animationData = new AnimationData(rocketAnimation);
     }
 
     @Override
