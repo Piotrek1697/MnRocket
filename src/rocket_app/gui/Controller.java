@@ -15,26 +15,19 @@ public class Controller implements Initializable {
 
     @FXML
     private Button playGameBtn;
-
     @FXML
     private Canvas canvas;
-
-
-
-    public void playGameBtn(ActionEvent actionEvent) {
-
-
-    }
+    
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         GraphicsContext gc = canvas.getGraphicsContext2D();
         drawShapes(gc);
-
-
     }
 
+    public void playGameBtn(ActionEvent actionEvent) {
+        System.out.println("PLAY");
+    }
 
     public  void drawShapes(GraphicsContext gc){
 

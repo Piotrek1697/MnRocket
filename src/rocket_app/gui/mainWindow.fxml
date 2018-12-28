@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="rocket.Controller">
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rocket_app.gui.Controller">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -22,7 +22,7 @@
          <children>
             <HBox layoutY="-3.0" prefHeight="34.0" prefWidth="260.0" style="-fx-background-color: #b0c9f2;">
                <children>
-                  <Button mnemonicParsing="false" text="PLAY">
+                  <Button fx:id="playGameBtn" mnemonicParsing="false" onAction="#playGameBtn" text="PLAY">
                      <HBox.margin>
                         <Insets left="110.0" top="6.0" />
                      </HBox.margin>
