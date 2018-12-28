@@ -5,21 +5,22 @@ import javafx.scene.layout.GridPane;
 
 public class RocketAnimation {
 
-    private AnimationTimer animationTimer;
-    private GridPane gridPane1;
-    private GridPane gridPane2;
+
+    private GridPane mainGridPane;
+    private GridPane minorGridPane;
     private double rocketSpeed;
 
-    public RocketAnimation(GridPane gridPane1, GridPane gridPane2) {
-        this.gridPane1 = gridPane1;
-        this.gridPane2 = gridPane2;
+    public RocketAnimation(GridPane mainGridPane, GridPane minorGridPane) {
+        this.mainGridPane = mainGridPane;
+        this.minorGridPane = minorGridPane;
 
     }
 
 
     public void gameLoop() {
 
-        animationTimer = new AnimationTimer() {
+        AnimationTimer animationTimer = new AnimationTimer() {
+
             @Override
             public void handle(long now) {
 
@@ -33,33 +34,33 @@ public class RocketAnimation {
 
     private void moveBackground() {
 
+        mainGridPane.setLayoutY(mainGridPane.getLayoutY() + getRocketSpeed());
+        minorGridPane.setLayoutY(minorGridPane.getLayoutY() + getRocketSpeed());
+
         if(getRocketSpeed() > 0) {
 
-            gridPane1.setLayoutY(gridPane1.getLayoutY() + getRocketSpeed());
-            gridPane2.setLayoutY(gridPane2.getLayoutY() + getRocketSpeed());
 
-            if (gridPane1.getLayoutY() >= 400) {
-                gridPane1.setLayoutY(-400);
+            if (mainGridPane.getLayoutY() >= 400) {
+                mainGridPane.setLayoutY(-400);
             }
 
-            if (gridPane2.getLayoutY() >= 400) {
+            if (minorGridPane.getLayoutY() >= 400) {
 
-                gridPane2.setLayoutY(-400);
+                minorGridPane.setLayoutY(-400);
 
             }
 
         }else if(getRocketSpeed() < 0){
 
-            gridPane1.setLayoutY(gridPane1.getLayoutY() + getRocketSpeed());
-            gridPane2.setLayoutY(gridPane2.getLayoutY() + getRocketSpeed());
 
-            if (gridPane1.getLayoutY() <= -400) {
-                gridPane1.setLayoutY(400);
+
+            if (mainGridPane.getLayoutY() <= -400) {
+                mainGridPane.setLayoutY(400);
             }
 
-            if (gridPane2.getLayoutY() <= -400) {
+            if (minorGridPane.getLayoutY() <= -400) {
 
-                gridPane2.setLayoutY(400);
+                minorGridPane.setLayoutY(400);
 
             }
 

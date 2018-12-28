@@ -16,10 +16,11 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
     @FXML
-    private GridPane gridPane1;
+    private GridPane mainGridPane;
 
     @FXML
-    private GridPane gridPane2;
+    private GridPane minorGridPane;
+
 
     @FXML
     private GridPane rocketPane;
@@ -37,7 +38,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        rocketAnimation = new RocketAnimation(gridPane1, gridPane2);
+        rocketAnimation = new RocketAnimation(mainGridPane,minorGridPane);
         rocketAnimation.gameLoop();
         rocketAnimation.setRocketSpeed(0.5);
 
