@@ -14,6 +14,5 @@ public class AnimationData {
 
     public void setRocketParametersEverySecond(ArrayList<RocketParameters> rocketParametersEverySecond) {
         this.rocketParametersEverySecond = rocketParametersEverySecond;
-        System.out.println(rocketParametersEverySecond);
     }
 }
