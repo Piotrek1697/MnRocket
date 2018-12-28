@@ -6,7 +6,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import rocket_app.animation.RocketAnimation;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,26 +16,31 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
     @FXML
-    private Button playGameBtn;
+    private GridPane mainGridPane;
+
     @FXML
-    private Canvas canvas;
-    
+    private GridPane minorGridPane;
+
+
+    @FXML
+    private GridPane rocketPane;
+
+    @FXML
+    private Button playGameBtn;
+
+
+    @FXML
+    void playGameBtn(ActionEvent event) {
+    }
+
+    RocketAnimation rocketAnimation;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        drawShapes(gc);
-    }
 
-    public void playGameBtn(ActionEvent actionEvent) {
-        System.out.println("PLAY");
-    }
-
-    public  void drawShapes(GraphicsContext gc){
-
-        gc.setFill(Color.GOLD);
-        gc.fillOval(115,60,30,30);
+        rocketAnimation = new RocketAnimation(mainGridPane,minorGridPane);
+        rocketAnimation.gameLoop();
+        rocketAnimation.setRocketSpeed(0.5);
 
     }
-
 }
