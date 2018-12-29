@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import org.apache.commons.math3.ode.nonstiff.EulerIntegrator;
+import rocket_app.animation.AnimationData;
 import rocket_app.animation.RocketAnimation;
 import rocket_app.equations.RocketODE;
 import rocket_app.rocket.RocketParameters;
@@ -40,12 +41,14 @@ public class Controller implements Initializable {
         rocketAnimation.gameLoop();
         rocketAnimation.setRocketSpeed(3);
 
+        AnimationData.setRocketAnimation(rocketAnimation);
+
         FirstOrderDifferentialEquations rocketODE = new RocketODE(636,1.63);
         FirstOrderIntegrator integrator = new EulerIntegrator(0.1);
 
 
         RocketThread rocketThread = new RocketThread();
-        RocketState rocketState = new RocketState(rocketODE,integrator,rocketParameters,rocketAnimation,"Rocket1");
+        RocketState rocketState = new RocketState(rocketODE,integrator,rocketParameters,"Rocket1");
         rocketThread.addObserver(rocketState);
 
         rocketThread.start();

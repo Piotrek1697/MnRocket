@@ -7,11 +7,8 @@ import java.util.ArrayList;
 public class AnimationData {
 
     private ArrayList<RocketParameters> rocketParametersEverySecond = new ArrayList<>();
-    private RocketAnimation rocketAnimation;
+    private static RocketAnimation rocketAnimation;
 
-    public AnimationData(RocketAnimation rocketAnimation) {
-        this.rocketAnimation = rocketAnimation;
-    }
 
     public ArrayList<RocketParameters> getRocketParametersEverySecond() {
         return rocketParametersEverySecond;
@@ -19,5 +16,9 @@ public class AnimationData {
 
     public void setRocketParametersEverySecond(ArrayList<RocketParameters> rocketParametersEverySecond) {
         this.rocketParametersEverySecond = rocketParametersEverySecond;
+    }
+
+    public static void setRocketAnimation(RocketAnimation rocketAnimation) {
+        AnimationData.rocketAnimation = rocketAnimation;
     }
 }
