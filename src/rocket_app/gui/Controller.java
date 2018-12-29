@@ -66,8 +66,6 @@ public class Controller implements Initializable {
             updateLabelsValues();
             updateFuelProgress();
 
-            System.out.println(rocketParameters.size());
-
         });
     }
 
@@ -86,11 +84,10 @@ public class Controller implements Initializable {
             double fuelMass = rocketParameters.get(rocketParameters.size()-1).getMass() - rocketMass;
             double state = fuelMass/fullTank;
 
-            if (state < 0.01)
+            if (state < 0.001)
                 state = 0;
 
             fuelBar.setProgress(state);
-            System.out.println(state);
         });
     }
 

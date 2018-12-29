@@ -10,7 +10,6 @@ import rocket_app.equations.RocketODE;
 import rocket_app.equations.RocketPath;
 import rocket_app.model.Observer;
 
-import java.util.ArrayList;
 
 public class RocketState implements Observer {
 
@@ -18,7 +17,6 @@ public class RocketState implements Observer {
     private FirstOrderDifferentialEquations equation;
     private FirstOrderIntegrator integrator;
     private String rocketName;
-    private ArrayList<RocketParameters> rocketParametersEverySecond = new ArrayList<>();
     private AnimationData animationData = new AnimationData();
 
     public RocketState(FirstOrderDifferentialEquations equation, FirstOrderIntegrator integrator, ObservableList<RocketParameters> rocketParameters, String rocketName) {
@@ -53,6 +51,10 @@ public class RocketState implements Observer {
 
         ((RocketODE) equation).setMi(mi);
         integrator.integrate(equation, 0, start, 0.1, stop);
+
+        if (rocketParameters.size() == 10){
+            rocketParameters.clear();
+        }
 
         for (int i = 0; i < rocketPath.gethVal().size(); i++) {
             double h = rocketPath.gethVal().get(i);

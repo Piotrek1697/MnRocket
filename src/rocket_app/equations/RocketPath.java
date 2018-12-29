@@ -11,7 +11,6 @@ public class RocketPath implements StepHandler {
     private ArrayList<Double> hVal = new ArrayList<>();
     private ArrayList<Double> vVal = new ArrayList<>();
     private ArrayList<Double> mVal = new ArrayList<>();
-    private ArrayList<Double> tVal = new ArrayList<>();
 
 
     public ArrayList<Double> gethVal() {
@@ -26,9 +25,6 @@ public class RocketPath implements StepHandler {
         return mVal;
     }
 
-    public ArrayList<Double> gettVal() {
-        return tVal;
-    }
 
     @Override
     public void init(double v, double[] doubles, double v1) {
@@ -38,13 +34,19 @@ public class RocketPath implements StepHandler {
     @Override
     public void handleStep(StepInterpolator stepInterpolator, boolean b) throws MaxCountExceededException {
 
-        double t = stepInterpolator.getCurrentTime();
         double h[] = stepInterpolator.getInterpolatedState();
+
+        if (hVal.size() == 10){
+            hVal.clear();
+            vVal.clear();
+            mVal.clear();
+        }
+
 
         hVal.add(h[0]);
         vVal.add(h[1]);
         mVal.add(h[2]);
-        tVal.add(t);
+
 
     }
 
