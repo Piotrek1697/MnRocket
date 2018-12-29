@@ -37,36 +37,35 @@ public class RocketAnimation {
         mainGridPane.setLayoutY(mainGridPane.getLayoutY() + getRocketSpeed());
         minorGridPane.setLayoutY(minorGridPane.getLayoutY() + getRocketSpeed());
 
-        if(getRocketSpeed() > 0) {
+        if (getRocketSpeed() > 0) {
 
 
-            if (mainGridPane.getLayoutY() >= 400) {
-                mainGridPane.setLayoutY(-400);
+            if (mainGridPane.getLayoutY() >= 500) {
+                mainGridPane.setLayoutY(-500);
             }
 
-            if (minorGridPane.getLayoutY() >= 400) {
+            if (minorGridPane.getLayoutY() >= 500) {
 
-                minorGridPane.setLayoutY(-400);
+                minorGridPane.setLayoutY(-500);
 
             }
 
-        }else if(getRocketSpeed() < 0){
+        } else if (getRocketSpeed() < 0) {
 
 
-
-            if (mainGridPane.getLayoutY() <= -400) {
+            if (mainGridPane.getLayoutY() <= -500) {
                 mainGridPane.setLayoutY(400);
             }
 
-            if (minorGridPane.getLayoutY() <= -400) {
+            if (minorGridPane.getLayoutY() <= -500) {
 
                 minorGridPane.setLayoutY(400);
 
             }
 
-        }else {
+        } else {
 
-            System.out.println("Prędkość równa 0");
+            System.out.println("Velocity 0");
 
         }
     }
@@ -75,10 +74,10 @@ public class RocketAnimation {
         this.rocketSpeed = rocketSpeed;
     }
 
-    public double getRocketSpeed(){
+    public double getRocketSpeed() {
 
         return rocketSpeed;
 
-    }
 
+    }
 }

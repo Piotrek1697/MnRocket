@@ -37,18 +37,17 @@ public class Controller implements Initializable {
     @FXML
     void playGameBtn(ActionEvent event) {
 
-        rocketAnimation = new RocketAnimation(mainGridPane,minorGridPane);
+        rocketAnimation = new RocketAnimation(mainGridPane, minorGridPane);
         rocketAnimation.gameLoop();
-        rocketAnimation.setRocketSpeed(3);
 
         AnimationData.setRocketAnimation(rocketAnimation);
 
-        FirstOrderDifferentialEquations rocketODE = new RocketODE(636,1.63);
+        FirstOrderDifferentialEquations rocketODE = new RocketODE(636, 1.63);
         FirstOrderIntegrator integrator = new EulerIntegrator(0.1);
 
 
         RocketThread rocketThread = new RocketThread();
-        RocketState rocketState = new RocketState(rocketODE,integrator,rocketParameters,"Rocket1");
+        RocketState rocketState = new RocketState(rocketODE, integrator, rocketParameters, "Rocket1");
         rocketThread.addObserver(rocketState);
 
         rocketThread.start();
@@ -57,7 +56,6 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
 
 
     }
