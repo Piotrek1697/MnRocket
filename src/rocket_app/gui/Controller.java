@@ -6,6 +6,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
@@ -29,6 +32,14 @@ public class Controller implements Initializable {
     private GridPane rocketPane;
     @FXML
     private Button playGameBtn;
+    @FXML
+    private Label heightLabel;
+    @FXML
+    private Label velocityLabel;
+    @FXML
+    private Slider thrustSlider;
+    @FXML
+    private ProgressBar fuelBar;
 
     private RocketAnimation rocketAnimation;
     private ObservableList<RocketParameters> rocketParameters = FXCollections.observableArrayList();
