@@ -2,30 +2,28 @@ package rocket_app.animation;
 
 import rocket_app.rocket.RocketParameters;
 
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class AnimationData {
 
     private double velocity;
-    private ArrayList<RocketParameters> rocketParametersEverySecond = new ArrayList<>();
     private static RocketAnimation rocketAnimation;
+    private RocketParameters rocketParameter;
 
 
-    public ArrayList<RocketParameters> getRocketParametersEverySecond() {
-        return rocketParametersEverySecond;
+    public RocketParameters getRocketParameter() {
+        return rocketParameter;
     }
 
-    public void setRocketParametersEverySecond(ArrayList<RocketParameters> rocketParametersEverySecond) {
-        this.rocketParametersEverySecond = rocketParametersEverySecond;
-        getVelocityFromArray();
+    public void setRocketParameter(RocketParameters rocketParameter) {
+        this.rocketParameter = rocketParameter;
     }
 
     public static void setRocketAnimation(RocketAnimation rocketAnimation) {
         AnimationData.rocketAnimation = rocketAnimation;
     }
 
-    private void getVelocityFromArray() {
+    /*private void getVelocityFromArray() {
 
         for (int i = 0; i <= rocketParametersEverySecond.size() - 1; i++) {
 
@@ -39,7 +37,8 @@ public class AnimationData {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
+
 
     private void setVelocityRatio() {
         // 100 m/s is equal 10px per frame
