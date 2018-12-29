@@ -70,7 +70,7 @@ public class RocketThread implements Runnable, Observable {
 
             try {
                 updateObservers();
-                Thread.sleep(1000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Thread interrupted");

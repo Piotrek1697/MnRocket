@@ -1,6 +1,5 @@
 package rocket_app.rocket;
 
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
@@ -11,7 +10,6 @@ import rocket_app.equations.RocketODE;
 import rocket_app.equations.RocketPath;
 import rocket_app.model.Observer;
 
-import java.util.ArrayList;
 
 public class RocketState implements Observer {
 
@@ -19,7 +17,6 @@ public class RocketState implements Observer {
     private FirstOrderDifferentialEquations equation;
     private FirstOrderIntegrator integrator;
     private String rocketName;
-    private ArrayList<RocketParameters> rocketParametersEverySecond = new ArrayList<>();
     private AnimationData animationData = new AnimationData();
 
     public RocketState(FirstOrderDifferentialEquations equation, FirstOrderIntegrator integrator, ObservableList<RocketParameters> rocketParameters, String rocketName) {
@@ -53,7 +50,11 @@ public class RocketState implements Observer {
         }
 
         ((RocketODE) equation).setMi(mi);
-        integrator.integrate(equation, 0, start, 1, stop);
+        integrator.integrate(equation, 0, start, 0.1, stop);
+
+        if (rocketParameters.size() == 10){
+            rocketParameters.clear();
+        }
 
         for (int i = 0; i < rocketPath.gethVal().size(); i++) {
             double h = rocketPath.gethVal().get(i);
@@ -62,6 +63,7 @@ public class RocketState implements Observer {
 
             if (h <= 0) {
                 rocketParameters.add(new RocketParameters(0, v, m));
+                sendParametersToAnimationData();
                 throw new GroundAltitudeException("Rocket reached the ground");
             }
 
@@ -76,12 +78,6 @@ public class RocketState implements Observer {
     }
 
     private void sendParametersToAnimationData(){
-        for (int i = 9; i >= 0; i--){
-            int paramSize = rocketParameters.size();
-            rocketParametersEverySecond.add(rocketParameters.get(paramSize-1-i));
-        }
-
-        animationData.setRocketParametersEverySecond(rocketParametersEverySecond);
-        rocketParametersEverySecond.clear();
+        animationData.setRocketParameter(rocketParameters.get(rocketParameters.size()-1));
     }
 }

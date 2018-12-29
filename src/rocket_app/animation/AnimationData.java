@@ -2,17 +2,16 @@ package rocket_app.animation;
 
 import rocket_app.rocket.RocketParameters;
 
-import java.util.ArrayList;
 
 public class AnimationData {
 
-    private ArrayList<RocketParameters> rocketParametersEverySecond = new ArrayList<>();
+    private RocketParameters rocketParameter;
 
-    public ArrayList<RocketParameters> getRocketParametersEverySecond() {
-        return rocketParametersEverySecond;
+    public RocketParameters getRocketParameter() {
+        return rocketParameter;
     }
 
-    public void setRocketParametersEverySecond(ArrayList<RocketParameters> rocketParametersEverySecond) {
-        this.rocketParametersEverySecond = rocketParametersEverySecond;
+    public void setRocketParameter(RocketParameters rocketParameter) {
+        this.rocketParameter = rocketParameter;
     }
 }
