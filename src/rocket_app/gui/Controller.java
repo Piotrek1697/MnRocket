@@ -127,7 +127,7 @@ public class Controller implements Initializable {
         FirstOrderIntegrator integrator = new EulerIntegrator(dt);
 
         thrustSlider.setValue(sliderValue);
-        powerLabel.setText(new Double(sliderValue).toString());
+        powerLabel.setText(Double.toString(sliderValue));
         powerLabel.textProperty().bindBidirectional(thrustSlider.valueProperty(), NumberFormat.getIntegerInstance());
 
         rocketState = new RocketState(rocketODE, integrator, rocketParameters, rocketName);
