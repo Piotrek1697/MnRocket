@@ -101,10 +101,14 @@ public class Controller implements Initializable {
             double fuelMass = rocketParameters.get(rocketParameters.size() - 1).getMass() - rocketMass;
             double state = fuelMass / fullTank;
 
-            fuelLabel.textProperty().set(String.format("%.0f", state * 100));
-
-            if (state < 0.001)
+            if (state < 0.001) {
                 state = 0;
+                thrustSlider.setValue(state);
+                thrustSlider.setDisable(true);
+            }
+
+
+            fuelLabel.textProperty().set(String.format("%.0f", state * 100));
 
             fuelBar.setProgress(state);
         });
