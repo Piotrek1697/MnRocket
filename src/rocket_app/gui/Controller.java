@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import org.apache.commons.math3.ode.nonstiff.EulerIntegrator;
+import rocket_app.animation.AnimationData;
 import rocket_app.animation.RocketAnimation;
 import rocket_app.equations.RocketODE;
 import rocket_app.rocket.RocketParameters;
@@ -19,10 +20,14 @@ import rocket_app.rocket.RocketState;
 import rocket_app.rocket.RocketThread;
 
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
+
+    @FXML
+    private GridPane groundZeroPane;
     @FXML
     private GridPane mainGridPane;
     @FXML
@@ -39,10 +44,15 @@ public class Controller implements Initializable {
     private Slider thrustSlider;
     @FXML
     private ProgressBar fuelBar;
+    @FXML
+    private Label fuelLabel;
+
+    @FXML
+    private Label powerLabel;
 
     private RocketAnimation rocketAnimation;
     private ObservableList<RocketParameters> rocketParameters = FXCollections.observableArrayList();
-    private RocketThread rocketThread;
+    private RocketThread rocketThread = new RocketThread();
     private RocketState rocketState;
 
     private final static double gravity = 1.63;
@@ -51,13 +61,19 @@ public class Controller implements Initializable {
     private final static String rocketName = "Rocket1";
     private final static double rocketMass = 1000;
     private final static double fullTank = 1730.14;
+    private final static double fullPower = -16.5;
+    private final static double sliderValue = 0;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        rocketAnimation = new RocketAnimation(mainGridPane, minorGridPane);
+
+        rocketAnimation = new RocketAnimation(mainGridPane, minorGridPane, groundZeroPane);
         rocketAnimation.gameLoop();
         rocketAnimation.setRocketSpeed(3);
+        AnimationData.setRocketAnimation(rocketAnimation);
+
 
         fuelBar.setProgress(1);
 
@@ -65,40 +81,55 @@ public class Controller implements Initializable {
 
             updateLabelsValues();
             updateFuelProgress();
+            setThrustOfRocket();
 
         });
     }
 
-    private void updateLabelsValues(){
+    private void updateLabelsValues() {
         Platform.runLater(() -> {
             double height = rocketParameters.get(rocketParameters.size() - 1).getHeight();
             double velocity = rocketParameters.get(rocketParameters.size() - 1).getVelocity();
 
-            heightLabel.textProperty().set(String.format("%.0f",height));
-            velocityLabel.textProperty().set(String.format("%.2f",velocity));
+            heightLabel.textProperty().set(String.format("%.0f", height));
+            velocityLabel.textProperty().set(String.format("%.2f", velocity));
         });
     }
 
-    private void updateFuelProgress(){
+    private void updateFuelProgress() {
         Platform.runLater(() -> {
-            double fuelMass = rocketParameters.get(rocketParameters.size()-1).getMass() - rocketMass;
-            double state = fuelMass/fullTank;
+            double fuelMass = rocketParameters.get(rocketParameters.size() - 1).getMass() - rocketMass;
+            double state = fuelMass / fullTank;
 
-            if (state < 0.001)
+            if (state < 0.001) {
                 state = 0;
+                thrustSlider.setValue(state);
+                thrustSlider.setDisable(true);
+            }
+
+
+            fuelLabel.textProperty().set(String.format("%.0f", state * 100));
 
             fuelBar.setProgress(state);
         });
     }
 
+    private void setThrustOfRocket() {
+        Platform.runLater(() -> {
+            rocketThread.setMi((thrustSlider.getValue() / 100) * fullPower);
+        });
+
+    }
 
     @FXML
     void playGameBtn(ActionEvent event) {
         FirstOrderDifferentialEquations rocketODE = new RocketODE(flameVelocity, gravity);
         FirstOrderIntegrator integrator = new EulerIntegrator(dt);
 
-        rocketThread = new RocketThread();
-        rocketThread.setMi(-16.5);
+        thrustSlider.setValue(sliderValue);
+        powerLabel.setText(Double.toString(sliderValue));
+        powerLabel.textProperty().bindBidirectional(thrustSlider.valueProperty(), NumberFormat.getIntegerInstance());
+
         rocketState = new RocketState(rocketODE, integrator, rocketParameters, rocketName);
         rocketThread.addObserver(rocketState);
 
