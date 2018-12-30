@@ -102,7 +102,7 @@ public class RocketAnimation {
             System.out.println("Rocket Crashed");
         }
 
-
+        if(getRocketSpeed()<-1)
         groundZeroPane.setLayoutY(getRocketHeight()*(Math.abs(getRocketSpeed()))+10);
 
 

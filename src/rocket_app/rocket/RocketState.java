@@ -40,7 +40,7 @@ public class RocketState implements Observer {
         double[] stop = new double[]{0, -2000, 1000};
 
         if (rocketParameters.size() == 0)
-            start = new double[]{4200, -150, 2730.14};
+            start = new double[]{50000, -150, 2730.14};
         else {
             double height = rocketParameters.get(rocketParameters.size() - 1).getHeight();
             double velocity = rocketParameters.get(rocketParameters.size() - 1).getVelocity();

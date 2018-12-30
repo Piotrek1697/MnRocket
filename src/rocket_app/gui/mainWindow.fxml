@@ -111,8 +111,12 @@
                 <Label fx:id="velocityLabel" alignment="CENTER" layoutX="103.0" layoutY="329.0" prefHeight="37.0" prefWidth="94.0" style="-fx-border-color: grey; -fx-border-radius: 20;" text="VELOCITY" />
                 <Slider fx:id="thrustSlider" layoutX="215.0" layoutY="320.0" orientation="VERTICAL" prefHeight="79.0" prefWidth="30.0" />
                 <ProgressBar fx:id="fuelBar" layoutX="36.0" layoutY="353.0" prefHeight="13.0" prefWidth="68.0" progress="0.0" rotate="-90.0" />
-            <Label layoutX="23.0" layoutY="361.0" text="FUEL" />
-            <Label fx:id="fuelLabel" layoutX="23.0" layoutY="376.0" text="0000" />
+            <Label layoutX="13.0" layoutY="361.0" text="FUEL" />
+            <Label fx:id="fuelLabel" layoutX="16.0" layoutY="376.0" text="000" />
+            <Label layoutX="246.0" layoutY="361.0" text="POWER" />
+            <Label fx:id="powerLabel" layoutX="256.0" layoutY="376.0" text="000" />
+            <Label layoutX="279.0" layoutY="376.0" prefHeight="17.0" prefWidth="13.0" text="\%" />
+            <Label layoutX="39.0" layoutY="376.0" prefHeight="17.0" prefWidth="13.0" text="\%" />
             </children>
         </AnchorPane>
     </children>
