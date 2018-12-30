@@ -10,10 +10,10 @@ public class RocketAnimation {
     private GridPane mainGridPane;
     private GridPane minorGridPane;
     private double rocketSpeed;
-    private double rocketHeight;
+    private double rocketHeight = 1;
     private AnimationTimer animationTimer;
 
-    public RocketAnimation(GridPane mainGridPane, GridPane minorGridPane,GridPane groundZeroPane) {
+    public RocketAnimation(GridPane mainGridPane, GridPane minorGridPane, GridPane groundZeroPane) {
         this.mainGridPane = mainGridPane;
         this.minorGridPane = minorGridPane;
         this.groundZeroPane = groundZeroPane;
@@ -23,7 +23,7 @@ public class RocketAnimation {
 
     public void gameLoop() {
 
-       animationTimer = new AnimationTimer() {
+        animationTimer = new AnimationTimer() {
 
             @Override
             public void handle(long now) {
@@ -90,21 +90,27 @@ public class RocketAnimation {
     }
 
     public double getRocketHeight() {
-
         return rocketHeight;
     }
 
-    private void moveGroundZero(){
+    private void moveGroundZero() {
 
-        if (getRocketHeight() == 0 && getRocketSpeed() < -2 ){
-            mainGridPane.setLayoutY(0);
-            minorGridPane.setLayoutY(-400);
-            System.out.println("Rocket Crashed");
+        if (getRocketHeight() == 0 && getRocketSpeed() < -0.2) {
+            stopBackground();
+            System.out.println("Rocked Crashed");
+        } else if (getRocketHeight() == 0 && getRocketSpeed() > -0.2) {
+            System.out.println("Landed Succesfully");
+            stopBackground();
         }
 
-        if(getRocketSpeed()<-1)
-        groundZeroPane.setLayoutY(getRocketHeight()*(Math.abs(getRocketSpeed()))+10);
+        groundZeroPane.setLayoutY(getRocketHeight() * 10);
+        //groundZeroPane.setLayoutY(getRocketHeight()*(Math.abs(getRocketSpeed()))+10);
 
+    }
 
+    private void stopBackground() {
+        mainGridPane.setLayoutY(0);
+        minorGridPane.setLayoutY(-400);
+        animationTimer.stop();
     }
 }
