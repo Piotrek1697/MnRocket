@@ -6,25 +6,30 @@ import javafx.scene.layout.GridPane;
 public class RocketAnimation {
 
 
+    private GridPane groundZeroPane;
     private GridPane mainGridPane;
     private GridPane minorGridPane;
     private double rocketSpeed;
+    private double rocketHeight;
+    private AnimationTimer animationTimer;
 
-    public RocketAnimation(GridPane mainGridPane, GridPane minorGridPane) {
+    public RocketAnimation(GridPane mainGridPane, GridPane minorGridPane,GridPane groundZeroPane) {
         this.mainGridPane = mainGridPane;
         this.minorGridPane = minorGridPane;
+        this.groundZeroPane = groundZeroPane;
 
     }
 
 
     public void gameLoop() {
 
-        AnimationTimer animationTimer = new AnimationTimer() {
+       animationTimer = new AnimationTimer() {
 
             @Override
             public void handle(long now) {
 
                 moveBackground();
+                moveGroundZero();
 
             }
         };
@@ -40,24 +45,24 @@ public class RocketAnimation {
         if (getRocketSpeed() > 0) {
 
 
-            if (mainGridPane.getLayoutY() >= 500) {
-                mainGridPane.setLayoutY(-500);
+            if (mainGridPane.getLayoutY() >= 400) {
+                mainGridPane.setLayoutY(-400);
             }
 
-            if (minorGridPane.getLayoutY() >= 500) {
+            if (minorGridPane.getLayoutY() >= 400) {
 
-                minorGridPane.setLayoutY(-500);
+                minorGridPane.setLayoutY(-400);
 
             }
 
         } else if (getRocketSpeed() < 0) {
 
 
-            if (mainGridPane.getLayoutY() <= -500) {
+            if (mainGridPane.getLayoutY() <= -400) {
                 mainGridPane.setLayoutY(400);
             }
 
-            if (minorGridPane.getLayoutY() <= -500) {
+            if (minorGridPane.getLayoutY() <= -400) {
 
                 minorGridPane.setLayoutY(400);
 
@@ -77,6 +82,28 @@ public class RocketAnimation {
     public double getRocketSpeed() {
 
         return rocketSpeed;
+
+    }
+
+    public void setRocketHeight(double rocketHeight) {
+        this.rocketHeight = rocketHeight;
+    }
+
+    public double getRocketHeight() {
+
+        return rocketHeight;
+    }
+
+    private void moveGroundZero(){
+
+        if (getRocketHeight() == 0 && getRocketSpeed() < -2 ){
+            mainGridPane.setLayoutY(0);
+            minorGridPane.setLayoutY(-400);
+            System.out.println("Rocket Crashed");
+        }
+
+
+        groundZeroPane.setLayoutY(getRocketHeight()*(Math.abs(getRocketSpeed()))+10);
 
 
     }

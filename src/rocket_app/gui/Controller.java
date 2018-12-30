@@ -24,6 +24,9 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
+
+    @FXML
+    private GridPane groundZeroPane;
     @FXML
     private GridPane mainGridPane;
     @FXML
@@ -40,6 +43,8 @@ public class Controller implements Initializable {
     private Slider thrustSlider;
     @FXML
     private ProgressBar fuelBar;
+    @FXML
+    private Label fuelLabel;
 
     private RocketAnimation rocketAnimation;
     private ObservableList<RocketParameters> rocketParameters = FXCollections.observableArrayList();
@@ -58,7 +63,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        rocketAnimation = new RocketAnimation(mainGridPane, minorGridPane);
+        rocketAnimation = new RocketAnimation(mainGridPane, minorGridPane,groundZeroPane);
         rocketAnimation.gameLoop();
         rocketAnimation.setRocketSpeed(3);
         AnimationData.setRocketAnimation(rocketAnimation);
