@@ -6,9 +6,14 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import org.apache.commons.math3.ode.nonstiff.EulerIntegrator;
@@ -24,7 +29,6 @@ import java.text.NumberFormat;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
-
 
     @FXML
     private GridPane groundZeroPane;
@@ -46,9 +50,11 @@ public class Controller implements Initializable {
     private ProgressBar fuelBar;
     @FXML
     private Label fuelLabel;
-
     @FXML
     private Label powerLabel;
+    @FXML
+    private Button statistisWindowBtn;
+
 
     private RocketAnimation rocketAnimation;
     private ObservableList<RocketParameters> rocketParameters = FXCollections.observableArrayList();
@@ -135,6 +141,23 @@ public class Controller implements Initializable {
 
         rocketThread.start();
     }
+
+    @FXML
+    void pressStatWindowBtn(ActionEvent event) throws Exception{
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("statisticWindow.fxml"));
+        Parent statisticRoot = fxmlLoader.load();
+        Stage statisticStage = new Stage();
+        statisticStage.setScene(new Scene(statisticRoot));
+        statisticStage.setResizable(false);
+        statisticStage.show();
+
+        // constructor of the new statisticWindow
+        StatisticController statisticController = fxmlLoader.getController();
+
+
+    }
+
 
     @FXML
     public void exitApplication() {
