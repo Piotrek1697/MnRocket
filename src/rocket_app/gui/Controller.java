@@ -136,7 +136,14 @@ public class Controller {
             fuelLabel.textProperty().set(String.format("%.0f", state * 100));
 
             fuelBar.setProgress(state);
-        });
+
+
+            if(state <= 0.3) {
+                fuelBar.setStyle("-fx-accent: #e82214;");
+            }else{
+                fuelBar.setStyle("-fx-accent: #10ea6a;");
+            }
+            });
     }
 
     private void setThrustOfRocket() {

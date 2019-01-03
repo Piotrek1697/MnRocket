@@ -107,12 +107,12 @@
                 <Label fx:id="velocityLabel" alignment="CENTER" layoutX="124.0" layoutY="316.0" prefHeight="44.0" prefWidth="53.0" style="-fx-border-radius: 20;" text="VELOCITY" />
                 <Slider fx:id="thrustSlider" layoutX="202.0" layoutY="316.0" orientation="VERTICAL" prefHeight="87.0" prefWidth="41.0" />
                 <ProgressBar fx:id="fuelBar" layoutX="38.0" layoutY="353.0" prefHeight="13.0" prefWidth="78.0" progress="0.0" rotate="-90.0" />
-            <Label layoutX="33.0" layoutY="383.0" text="FUEL" />
-            <Label fx:id="fuelLabel" layoutX="36.0" layoutY="370.0" text="000" />
-            <Label layoutX="230.0" layoutY="383.0" text="POWER" />
-            <Label fx:id="powerLabel" layoutX="230.0" layoutY="370.0" text="000" />
-            <Label layoutX="250.0" layoutY="370.0" prefHeight="17.0" prefWidth="13.0" text="\%" />
-            <Label layoutX="56.0" layoutY="371.0" prefHeight="17.0" prefWidth="13.0" text="\%" />
+            <Label layoutX="33.0" layoutY="383.0" text="FUEL" textFill="#d0d0d0" />
+            <Label fx:id="fuelLabel" layoutX="36.0" layoutY="370.0" text="000" textFill="#d0d0d0" />
+            <Label layoutX="230.0" layoutY="383.0" text="POWER" textFill="#d0d0d0" />
+            <Label fx:id="powerLabel" layoutX="230.0" layoutY="370.0" text="000" textFill="#d0d0d0" />
+            <Label layoutX="250.0" layoutY="370.0" prefHeight="17.0" prefWidth="13.0" text="\%" textFill="#d0d0d0" />
+            <Label layoutX="56.0" layoutY="371.0" prefHeight="17.0" prefWidth="13.0" text="\%" textFill="#d0d0d0" />
             <Button fx:id="statistisWindowBtn" layoutX="107.0" layoutY="359.0" mnemonicParsing="false" onAction="#pressStatWindowBtn" prefHeight="17.0" prefWidth="87.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" stylesheets="@/styles/btnClickEffect.css" text="Statistic">
                <GridPane.margin>
                   <Insets />
