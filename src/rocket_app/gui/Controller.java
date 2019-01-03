@@ -195,7 +195,9 @@ public class Controller {
     }
 
     public  void setRocketImage(){
-        rocketImage.setImage(rocketAnimation.getImage((thrustSlider.getValue())));
+        Platform.runLater(() ->{
+            rocketImage.setImage(rocketAnimation.getImage((thrustSlider.getValue())));
+        });
     }
 
 }

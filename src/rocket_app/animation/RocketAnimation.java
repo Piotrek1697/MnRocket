@@ -3,6 +3,7 @@ package rocket_app.animation;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.GridPane;
 import javafx.scene.image.Image;
+import rocket_app.rocket.RocketImage;
 
 public class RocketAnimation {
 
@@ -13,7 +14,8 @@ public class RocketAnimation {
     private double rocketSpeed;
     private double rocketHeight = 1;
     private AnimationTimer animationTimer;
-    Image image;
+
+    private Image mainRocket ;
 
 
     public RocketAnimation(GridPane mainGridPane, GridPane minorGridPane, GridPane groundZeroPane) {
@@ -119,39 +121,38 @@ public class RocketAnimation {
 
     public Image getImage(double power){
 
-
-            image = new Image(getClass().getClassLoader().getResource("images/rockets/mainRocket.png").toString());
+            mainRocket = RocketImage.ROCKET.getImage();
 
             if(power > 0)
-                image = new Image(getClass().getClassLoader().getResource("images/rockets/mainRocket1_10.png").toString());
+                mainRocket = RocketImage.ROCKET_1_10.getImage();
 
             if(power > 10)
-                image = new Image(getClass().getClassLoader().getResource("images/rockets/mainRocket10_20.png").toString());
+                mainRocket = RocketImage.ROCKET_10_20.getImage();
 
             if(power > 20)
-                image = new Image(getClass().getClassLoader().getResource("images/rockets/mainRocket20_30.png").toString());
+                mainRocket = RocketImage.ROCKET_20_30.getImage();
 
             if(power > 30)
-               image = new Image(getClass().getClassLoader().getResource("images/rockets/mainRocket30_40.png").toString());
+               mainRocket = RocketImage.ROCKET_30_40.getImage();
 
             if(power >40)
-                image = new Image(getClass().getClassLoader().getResource("images/rockets/mainRocket40_50.png").toString());
+                mainRocket = RocketImage.ROCKET_40_50.getImage();
 
             if(power > 50)
-                image = new Image(getClass().getClassLoader().getResource("images/rockets/mainRocket50_60.png").toString());
+                mainRocket = RocketImage.ROCKET_50_60.getImage();
 
             if(power > 60)
-               image = new Image(getClass().getClassLoader().getResource("images/rockets/mainRocket60_70.png").toString());
+               mainRocket = RocketImage.ROCKET_60_70.getImage();
 
             if(power > 70)
-            image = new Image(getClass().getClassLoader().getResource("images/rockets/mainRocket70_80.png").toString());
+            mainRocket = RocketImage.ROCKET_70_80.getImage();
 
             if(power > 80)
-            image = new Image(getClass().getClassLoader().getResource("images/rockets/mainRocket80_90.png").toString());
+            mainRocket = RocketImage.ROCKET_80_90.getImage();
 
             if(power > 90)
-            image = new Image(getClass().getClassLoader().getResource("images/rockets/mainRocket90_100.png").toString());
+            mainRocket = RocketImage.ROCKET_90_100.getImage();
 
-        return image;
+        return mainRocket;
     }
 }
