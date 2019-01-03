@@ -36,6 +36,8 @@ import java.util.ResourceBundle;
 public class Controller {
 
     @FXML
+    private GridPane playBackground;
+    @FXML
     private GridPane groundZeroPane;
     @FXML
     private GridPane mainGridPane;
@@ -145,6 +147,11 @@ public class Controller {
         rocketThread.addObserver(rocketState);
 
         rocketThread.start();
+
+        playBackground.setLayoutX(600);
+
+
+
     }
 
     @FXML

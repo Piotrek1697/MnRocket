@@ -11,15 +11,16 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="301.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rocket_app.gui.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="301.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rocket_app.gui.Controller">
     <children>
       <ImageView fitHeight="405.0" fitWidth="301.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/images/gapFiller.png" />
          </image>
       </ImageView>
-        <GridPane fx:id="mainGridPane" prefHeight="400.0" prefWidth="301.0">
+        <GridPane fx:id="mainGridPane" prefHeight="405.0" prefWidth="301.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -37,7 +38,7 @@
                 </ImageView>
             </children>
         </GridPane>
-        <GridPane fx:id="minorGridPane" layoutY="-400.0" prefHeight="400.0" prefWidth="301.0">
+        <GridPane fx:id="minorGridPane" layoutY="-400.0" prefHeight="405.0" prefWidth="301.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -73,7 +74,7 @@
             </ImageView>
          </children>
       </GridPane>
-        <GridPane fx:id="rocketPane" layoutX="110.0" layoutY="195.0" prefHeight="93.0" prefWidth="87.0">
+        <GridPane fx:id="rocketPane" alignment="CENTER" layoutX="107.0" layoutY="195.0" prefHeight="93.0" prefWidth="87.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -88,6 +89,9 @@
                     <image>
                         <Image url="@/images/rocketTest.png" />
                     </image>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
                 </ImageView>
             </children>
         </GridPane>
@@ -95,29 +99,53 @@
             <children>
                 <ImageView fitHeight="405.0" fitWidth="301.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@/images/cocpitTest.png" />
+                        <Image url="@/images/mainCocpit2.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="playGameBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="117.0" layoutY="369.0" mnemonicParsing="false" onAction="#playGameBtn" prefHeight="30.0" prefWidth="68.0" style="-fx-border-radius: 40; -fx-background-radius: 40;" text="PLAY">
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                </Button>
-                <Label fx:id="heightLabel" alignment="CENTER" layoutX="116.0" layoutY="1.0" prefHeight="37.0" prefWidth="78.0" style="-fx-border-color: grey; -fx-border-radius: 20;" text="HEIGHT">
+                <Label fx:id="heightLabel" alignment="CENTER" layoutX="111.0" prefHeight="37.0" prefWidth="78.0" style="-fx-border-radius: 20;" text="HEIGHT">
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>
                 </Label>
-                <Label fx:id="velocityLabel" alignment="CENTER" layoutX="103.0" layoutY="329.0" prefHeight="37.0" prefWidth="94.0" style="-fx-border-color: grey; -fx-border-radius: 20;" text="VELOCITY" />
-                <Slider fx:id="thrustSlider" layoutX="215.0" layoutY="320.0" orientation="VERTICAL" prefHeight="79.0" prefWidth="30.0" />
-                <ProgressBar fx:id="fuelBar" layoutX="36.0" layoutY="353.0" prefHeight="13.0" prefWidth="68.0" progress="0.0" rotate="-90.0" />
-            <Label layoutX="13.0" layoutY="361.0" text="FUEL" />
-            <Label fx:id="fuelLabel" layoutX="16.0" layoutY="376.0" text="000" />
-            <Label layoutX="246.0" layoutY="361.0" text="POWER" />
-            <Label fx:id="powerLabel" layoutX="256.0" layoutY="376.0" text="000" />
-            <Label layoutX="279.0" layoutY="376.0" prefHeight="17.0" prefWidth="13.0" text="\%" />
-            <Label layoutX="39.0" layoutY="376.0" prefHeight="17.0" prefWidth="13.0" text="\%" />
-            <Button fx:id="statistisWindowBtn" layoutX="90.0" layoutY="372.0" mnemonicParsing="false" onAction="#pressStatWindowBtn" prefHeight="25.0" prefWidth="13.0" text="Statistic" />
+                <Label fx:id="velocityLabel" alignment="CENTER" layoutX="124.0" layoutY="316.0" prefHeight="44.0" prefWidth="53.0" style="-fx-border-radius: 20;" text="VELOCITY" />
+                <Slider fx:id="thrustSlider" layoutX="202.0" layoutY="316.0" orientation="VERTICAL" prefHeight="87.0" prefWidth="41.0" />
+                <ProgressBar fx:id="fuelBar" layoutX="38.0" layoutY="353.0" prefHeight="13.0" prefWidth="78.0" progress="0.0" rotate="-90.0" />
+            <Label layoutX="33.0" layoutY="383.0" text="FUEL" />
+            <Label fx:id="fuelLabel" layoutX="36.0" layoutY="370.0" text="000" />
+            <Label layoutX="230.0" layoutY="383.0" text="POWER" />
+            <Label fx:id="powerLabel" layoutX="230.0" layoutY="370.0" text="000" />
+            <Label layoutX="250.0" layoutY="370.0" prefHeight="17.0" prefWidth="13.0" text="\%" />
+            <Label layoutX="56.0" layoutY="371.0" prefHeight="17.0" prefWidth="13.0" text="\%" />
+            <Button fx:id="statistisWindowBtn" layoutX="107.0" layoutY="359.0" mnemonicParsing="false" onAction="#pressStatWindowBtn" prefHeight="17.0" prefWidth="87.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" stylesheets="@/styles/btnClickEffect.css" text="Statistic">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <font>
+                  <Font size="10.0" />
+               </font></Button>
+            <GridPane fx:id="playBackground" prefHeight="405.0" prefWidth="301.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <ImageView fitHeight="405.0" fitWidth="301.0" opacity="0.88" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/images/playBackground.png" />
+                     </image>
+                  </ImageView>
+                      <Button fx:id="playGameBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#playGameBtn" prefHeight="70.0" prefWidth="70.0" style="-fx-border-radius: 40; -fx-background-radius: 40;" text="PLAY" textAlignment="CENTER">
+                          <opaqueInsets>
+                              <Insets />
+                          </opaqueInsets>
+                     <GridPane.margin>
+                        <Insets bottom="120.0" left="115.0" />
+                     </GridPane.margin>
+                      </Button>
+               </children>
+            </GridPane>
             </children>
         </AnchorPane>
     </children>
