@@ -5,10 +5,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import org.apache.commons.math3.ode.nonstiff.EulerIntegrator;
@@ -23,8 +33,7 @@ import java.net.URL;
 import java.text.NumberFormat;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
-
+public class Controller {
 
     @FXML
     private GridPane groundZeroPane;
@@ -46,9 +55,11 @@ public class Controller implements Initializable {
     private ProgressBar fuelBar;
     @FXML
     private Label fuelLabel;
-
     @FXML
     private Label powerLabel;
+    @FXML
+    private Button statistisWindowBtn;
+
 
     private RocketAnimation rocketAnimation;
     private ObservableList<RocketParameters> rocketParameters = FXCollections.observableArrayList();
@@ -65,8 +76,8 @@ public class Controller implements Initializable {
     private final static double sliderValue = 0;
 
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
 
 
         rocketAnimation = new RocketAnimation(mainGridPane, minorGridPane, groundZeroPane);
@@ -137,8 +148,30 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    public void exitApplication() {
+    void pressStatWindowBtn(ActionEvent event) throws Exception {
 
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("statisticWindow.fxml"));
+        Parent statisticRoot = fxmlLoader.load();
+        Stage statisticStage = new Stage();
+        statisticStage.setTitle("Chart");
+        Scene statisticScene = new Scene(statisticRoot);
+        statisticScene.getStylesheets().addAll("styles/chartSymbol.css");
+        statisticStage.setScene(statisticScene);
+        statisticStage.setResizable(false);
+        
+        //Set stage coordinates relative to previous window
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        statisticStage.setX(5*primScreenBounds.getWidth()/8);
+        statisticStage.setY(primScreenBounds.getHeight()/6);
+
+        statisticStage.show();
+
+        StatisticController statisticController = fxmlLoader.getController();
+        statisticController.setRocketParameters(rocketParameters);
+    }
+
+    @FXML
+    public void exitApplication() {
         System.out.println("Exit App");
     }
 }

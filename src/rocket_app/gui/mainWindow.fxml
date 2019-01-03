@@ -117,6 +117,7 @@
             <Label fx:id="powerLabel" layoutX="256.0" layoutY="376.0" text="000" />
             <Label layoutX="279.0" layoutY="376.0" prefHeight="17.0" prefWidth="13.0" text="\%" />
             <Label layoutX="39.0" layoutY="376.0" prefHeight="17.0" prefWidth="13.0" text="\%" />
+            <Button fx:id="statistisWindowBtn" layoutX="90.0" layoutY="372.0" mnemonicParsing="false" onAction="#pressStatWindowBtn" prefHeight="25.0" prefWidth="13.0" text="Statistic" />
             </children>
         </AnchorPane>
     </children>
