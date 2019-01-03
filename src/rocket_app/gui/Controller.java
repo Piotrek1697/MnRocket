@@ -13,6 +13,8 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
@@ -29,6 +31,7 @@ import rocket_app.rocket.RocketParameters;
 import rocket_app.rocket.RocketState;
 import rocket_app.rocket.RocketThread;
 
+import java.io.File;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.ResourceBundle;
@@ -61,6 +64,11 @@ public class Controller {
     private Label powerLabel;
     @FXML
     private Button statistisWindowBtn;
+    @FXML
+    private ImageView rocketImage;
+
+    private Image image;
+
 
 
     private RocketAnimation rocketAnimation;
@@ -95,9 +103,13 @@ public class Controller {
             updateLabelsValues();
             updateFuelProgress();
             setThrustOfRocket();
+            setRocketImage();
 
         });
+
+
     }
+
 
     private void updateLabelsValues() {
         Platform.runLater(() -> {
@@ -130,6 +142,7 @@ public class Controller {
     private void setThrustOfRocket() {
         Platform.runLater(() -> {
             rocketThread.setMi((thrustSlider.getValue() / 100) * fullPower);
+
         });
 
     }
@@ -149,7 +162,6 @@ public class Controller {
         rocketThread.start();
 
         playBackground.setLayoutX(600);
-
 
 
     }
@@ -181,4 +193,9 @@ public class Controller {
     public void exitApplication() {
         System.out.println("Exit App");
     }
+
+    public  void setRocketImage(){
+        rocketImage.setImage(rocketAnimation.getImage((thrustSlider.getValue())));
+    }
+
 }
