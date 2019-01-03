@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -32,7 +33,7 @@ import java.net.URL;
 import java.text.NumberFormat;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class Controller {
 
     @FXML
     private GridPane groundZeroPane;
@@ -75,8 +76,8 @@ public class Controller implements Initializable {
     private final static double sliderValue = 0;
 
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
 
 
         rocketAnimation = new RocketAnimation(mainGridPane, minorGridPane, groundZeroPane);
@@ -157,13 +158,14 @@ public class Controller implements Initializable {
         statisticScene.getStylesheets().addAll("styles/chartSymbol.css");
         statisticStage.setScene(statisticScene);
         statisticStage.setResizable(false);
-
+        
+        //Set stage coordinates relative to previous window
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         statisticStage.setX(5*primScreenBounds.getWidth()/8);
         statisticStage.setY(primScreenBounds.getHeight()/6);
+
         statisticStage.show();
 
-        // constructor of the new statisticWindow
         StatisticController statisticController = fxmlLoader.getController();
         statisticController.setRocketParameters(rocketParameters);
     }

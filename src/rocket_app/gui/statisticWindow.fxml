@@ -4,9 +4,9 @@
 <?import javafx.scene.chart.ScatterChart?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rocket_app.gui.StatisticController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rocket_app.gui.StatisticController">
    <children>
-      <ScatterChart fx:id="statisticLineChart" prefHeight="300.0" prefWidth="400.0" style="-fx-background-radius: 20;">
+      <ScatterChart fx:id="statisticLineChart" prefHeight="400.0" prefWidth="500.0" style="-fx-background-radius: 20;">
         <xAxis>
           <NumberAxis side="BOTTOM" fx:id="xAxis" />
         </xAxis>
