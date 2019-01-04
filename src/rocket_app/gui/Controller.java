@@ -39,6 +39,8 @@ import java.util.ResourceBundle;
 public class Controller {
 
     @FXML
+    private Button restartGameBtn;
+    @FXML
     private GridPane playBackground;
     @FXML
     private GridPane groundZeroPane;
@@ -66,6 +68,9 @@ public class Controller {
     private Button statistisWindowBtn;
     @FXML
     private ImageView rocketImage;
+    @FXML
+    private Label endGameStatusLabel;
+
 
     private Image image;
 
@@ -138,11 +143,6 @@ public class Controller {
             fuelBar.setProgress(state);
 
 
-            if(state <= 0.3) {
-                fuelBar.setStyle("-fx-accent: #e82214;");
-            }else{
-                fuelBar.setStyle("-fx-accent: #10ea6a;");
-            }
             });
     }
 
@@ -194,6 +194,7 @@ public class Controller {
 
         StatisticController statisticController = fxmlLoader.getController();
         statisticController.setRocketParameters(rocketParameters);
+
     }
 
     @FXML
@@ -201,10 +202,23 @@ public class Controller {
         System.out.println("Exit App");
     }
 
+    @FXML
+    void restartGameBtn(ActionEvent event) {
+
+
+    }
+
     public  void setRocketImage(){
         Platform.runLater(() ->{
             rocketImage.setImage(rocketAnimation.getImage((thrustSlider.getValue())));
         });
+    }
+
+    public void onGroundReached(){
+
+        playBackground.setLayoutX(0);
+        restartGameBtn.setTranslateX(205);
+
     }
 
 }
