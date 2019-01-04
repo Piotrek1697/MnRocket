@@ -2,6 +2,7 @@ package rocket_app.rocket;
 
 import rocket_app.data.GroundAltitudeException;
 import rocket_app.data.OutOfFuelException;
+import rocket_app.gui.Controller;
 import rocket_app.model.Observable;
 import rocket_app.model.Observer;
 
@@ -42,9 +43,9 @@ public class RocketThread implements Runnable, Observable {
             try {
                 o.updateParameters(mi);
             } catch (GroundAltitudeException e) {
-                isRunning = false;
-                thread.interrupt();
+                stop();
                 System.out.println("["+o.getObserverName()+"]"+"Ground reached");
+                Controller.getController().onGroundReached();
             } catch (OutOfFuelException e) {
                 mi = 0;
                 System.out.println("["+o.getObserverName()+"]"+"Out of fuel");

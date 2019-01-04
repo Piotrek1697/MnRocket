@@ -67,7 +67,9 @@ public class RocketState implements Observer {
                 throw new GroundAltitudeException("Rocket reached the ground");
             }
 
-            if (m <= 1000) {
+            if (m <= 1001.8) {
+                rocketParameters.add(new RocketParameters(h, v, m));
+                System.out.println(rocketParameters.get(rocketParameters.size()-1).getMass());
                 throw new OutOfFuelException("Rocket is out of fuel");
             }
 

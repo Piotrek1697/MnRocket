@@ -51,4 +51,8 @@ public class StatisticController {
         xAxis.setLabel("Velocity [m/s]");
         yAxis.setLabel("Height [m]");
     }
+
+    public static XYChart.Series<Number, Number> getStatisticSeries() {
+        return statisticSeries;
+    }
 }

@@ -5,10 +5,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,11 +14,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import org.apache.commons.math3.ode.nonstiff.EulerIntegrator;
@@ -31,10 +26,7 @@ import rocket_app.rocket.RocketParameters;
 import rocket_app.rocket.RocketState;
 import rocket_app.rocket.RocketThread;
 
-import java.io.File;
-import java.net.URL;
 import java.text.NumberFormat;
-import java.util.ResourceBundle;
 
 public class Controller {
 
@@ -75,7 +67,6 @@ public class Controller {
     private Image image;
 
 
-
     private RocketAnimation rocketAnimation;
     private ObservableList<RocketParameters> rocketParameters = FXCollections.observableArrayList();
     private RocketThread rocketThread = new RocketThread();
@@ -90,10 +81,11 @@ public class Controller {
     private final static double fullPower = -16.5;
     private final static double sliderValue = 0;
 
+    private static Controller controller;
 
     @FXML
     public void initialize() {
-
+        controller = this;
 
         rocketAnimation = new RocketAnimation(mainGridPane, minorGridPane, groundZeroPane);
         rocketAnimation.gameLoop();
@@ -118,32 +110,35 @@ public class Controller {
 
     private void updateLabelsValues() {
         Platform.runLater(() -> {
-            double height = rocketParameters.get(rocketParameters.size() - 1).getHeight();
-            double velocity = rocketParameters.get(rocketParameters.size() - 1).getVelocity();
+            if (rocketParameters.size() != 0) {
+                double height = rocketParameters.get(rocketParameters.size() - 1).getHeight();
+                double velocity = rocketParameters.get(rocketParameters.size() - 1).getVelocity();
 
-            heightLabel.textProperty().set(String.format("%.0f", height));
-            velocityLabel.textProperty().set(String.format("%.2f", velocity));
+                heightLabel.textProperty().set(String.format("%.0f", height));
+                velocityLabel.textProperty().set(String.format("%.2f", velocity));
+            }
         });
     }
 
     private void updateFuelProgress() {
         Platform.runLater(() -> {
-            double fuelMass = rocketParameters.get(rocketParameters.size() - 1).getMass() - rocketMass;
-            double state = fuelMass / fullTank;
+            if (rocketParameters.size() != 0) {
+                double fuelMass = rocketParameters.get(rocketParameters.size() - 1).getMass() - rocketMass;
+                double state = fuelMass / fullTank;
 
-            if (state < 0.001) {
-                state = 0;
-                thrustSlider.setValue(state);
-                thrustSlider.setDisable(true);
+                if (state < 0.001) {
+                    state = 0;
+                    thrustSlider.setValue(state);
+                    thrustSlider.setDisable(true);
+                }
+
+
+                fuelLabel.textProperty().set(String.format("%.0f", state * 100));
+
+                fuelBar.setProgress(state);
+
             }
-
-
-            fuelLabel.textProperty().set(String.format("%.0f", state * 100));
-
-            fuelBar.setProgress(state);
-
-
-            });
+        });
     }
 
     private void setThrustOfRocket() {
@@ -184,11 +179,11 @@ public class Controller {
         statisticScene.getStylesheets().addAll("styles/chartSymbol.css");
         statisticStage.setScene(statisticScene);
         statisticStage.setResizable(false);
-        
+
         //Set stage coordinates relative to previous window
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-        statisticStage.setX(5*primScreenBounds.getWidth()/8);
-        statisticStage.setY(primScreenBounds.getHeight()/6);
+        statisticStage.setX(5 * primScreenBounds.getWidth() / 8);
+        statisticStage.setY(primScreenBounds.getHeight() / 6);
 
         statisticStage.show();
 
@@ -202,23 +197,47 @@ public class Controller {
         System.out.println("Exit App");
     }
 
-    @FXML
-    void restartGameBtn(ActionEvent event) {
-
-
-    }
-
-    public  void setRocketImage(){
-        Platform.runLater(() ->{
+    private void setRocketImage() {
+        Platform.runLater(() -> {
             rocketImage.setImage(rocketAnimation.getImage((thrustSlider.getValue())));
         });
     }
 
-    public void onGroundReached(){
+    @FXML
+    void restartGameBtn(ActionEvent event) {
+        rocketParameters.clear();
+        rocketAnimation = new RocketAnimation(mainGridPane, minorGridPane, groundZeroPane);
+        rocketAnimation.gameLoop();
+        AnimationData.setRocketAnimation(rocketAnimation);
+        rocketThread.removeObserver(rocketState);
 
-        playBackground.setLayoutX(0);
-        restartGameBtn.setTranslateX(205);
+        fuelBar.setProgress(1);
+
+        playGameBtn(event);
+        restartGameBtn.setTranslateX(0);
+        playBackground.setLayoutX(600);
+        StatisticController.getStatisticSeries().getData().clear();
 
     }
+
+    public void onGroundReached() {
+        Platform.runLater(() -> {
+            playBackground.setLayoutX(0);
+            restartGameBtn.setTranslateX(205);
+
+            RocketParameters parameter = rocketParameters.get(rocketParameters.size() - 1);
+            if (parameter.getVelocity() >= -2) {
+                endGameStatusLabel.textProperty().set("Success");
+            } else {
+                endGameStatusLabel.textProperty().set("Failed");
+            }
+        });
+
+    }
+
+    public static Controller getController() {
+        return controller;
+    }
+
 
 }
