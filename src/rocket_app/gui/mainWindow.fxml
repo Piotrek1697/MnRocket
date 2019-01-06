@@ -6,6 +6,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -138,6 +141,18 @@
                         <Image url="@/images/playBackground.png" />
                      </image>
                   </ImageView>
+                  <Label fx:id="endGameStatusLabel" alignment="CENTER" prefHeight="51.0" prefWidth="94.0" style="-fx-border-color: grey; -fx-border-radius: 10;" textAlignment="CENTER">
+                     <GridPane.margin>
+                        <Insets bottom="260.0" left="102.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TableView fx:id="leadersTable" prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn fx:id="rankColumn" prefWidth="75.0" text="Rank" />
+                      <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
+                        <TableColumn fx:id="fuelColumn" prefWidth="75.0" text="Fuel [kg]" />
+                    </columns>
+                  </TableView>
                       <Button fx:id="playGameBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#playGameBtn" prefHeight="70.0" prefWidth="70.0" style="-fx-border-radius: 40; -fx-background-radius: 40;" text="PLAY" textAlignment="CENTER">
                           <opaqueInsets>
                               <Insets />
@@ -146,11 +161,8 @@
                         <Insets bottom="120.0" left="115.0" />
                      </GridPane.margin>
                       </Button>
-                  <Label fx:id="endGameStatusLabel" alignment="CENTER" prefHeight="51.0" prefWidth="94.0" style="-fx-border-color: grey; -fx-border-radius: 10;" textAlignment="CENTER">
-                     <GridPane.margin>
-                        <Insets bottom="260.0" left="102.0" />
-                     </GridPane.margin>
-                  </Label>
+                  <TextField fx:id="nameTextField" />
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#addRecord" text="Add" />
                </children>
             </GridPane>
             </children>

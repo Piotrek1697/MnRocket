@@ -11,6 +11,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -21,12 +22,16 @@ import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import org.apache.commons.math3.ode.nonstiff.EulerIntegrator;
 import rocket_app.animation.AnimationData;
 import rocket_app.animation.RocketAnimation;
+import rocket_app.data.FileManager;
+import rocket_app.data.Player;
 import rocket_app.equations.RocketODE;
 import rocket_app.rocket.RocketParameters;
 import rocket_app.rocket.RocketState;
 import rocket_app.rocket.RocketThread;
 
+import java.io.File;
 import java.text.NumberFormat;
+import java.util.Collections;
 
 public class Controller {
 
@@ -62,6 +67,18 @@ public class Controller {
     private ImageView rocketImage;
     @FXML
     private Label endGameStatusLabel;
+    @FXML
+    private TableView<Player> leadersTable;
+    @FXML
+    private TableColumn<?, ?> rankColumn;
+    @FXML
+    private TableColumn<?, ?> nameColumn;
+    @FXML
+    private TableColumn<?, ?> fuelColumn;
+    @FXML
+    private TextField nameTextField;
+    @FXML
+    private Button addButton;
 
 
     private Image image;
@@ -69,6 +86,7 @@ public class Controller {
 
     private RocketAnimation rocketAnimation;
     private ObservableList<RocketParameters> rocketParameters = FXCollections.observableArrayList();
+    private ObservableList<Player> players = FXCollections.observableArrayList();
     private RocketThread rocketThread = new RocketThread();
     private RocketState rocketState;
 
@@ -80,6 +98,7 @@ public class Controller {
     private final static double fullTank = 1730.14;
     private final static double fullPower = -16.5;
     private final static double sliderValue = 0;
+    private final static String playersJsonFileName = "playersData.json";
 
     private static Controller controller;
 
@@ -104,7 +123,27 @@ public class Controller {
 
         });
 
+        initializeTable();
+        loadJsonToTable();
 
+    }
+
+    private void loadJsonToTable() {
+        File jsonFile = new File("res/files/playersData.json");
+        if (!jsonFile.exists()) {
+            System.out.println("File doesn't exists");
+        } else {
+            players = FileManager.loadFromJson(jsonFile);
+        }
+
+        leadersTable.setItems(players);
+        sortPlayers();
+    }
+
+    private void initializeTable(){
+        fuelColumn.setCellValueFactory(new PropertyValueFactory<>("fuel"));
+        rankColumn.setCellValueFactory(new PropertyValueFactory<>("rank"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("playerName"));
     }
 
 
@@ -192,11 +231,6 @@ public class Controller {
 
     }
 
-    @FXML
-    public void exitApplication() {
-        System.out.println("Exit App");
-    }
-
     private void setRocketImage() {
         Platform.runLater(() -> {
             rocketImage.setImage(rocketAnimation.getImage((thrustSlider.getValue())));
@@ -239,5 +273,31 @@ public class Controller {
         return controller;
     }
 
+    @FXML
+    void addRecord(ActionEvent event) {
+        String playerName = nameTextField.textProperty().getValue();
+        double fuelMass = rocketParameters.get(rocketParameters.size() - 1).getMass() - rocketMass;
+
+        players.add(new Player(playerName, fuelMass));
+
+        sortPlayers();
+
+    }
+
+    private void sortPlayers() {
+        Collections.sort(players);
+
+        for (int i = 0; i < players.size(); i++) {
+            players.get(i).setRank(i + 1);
+        }
+        leadersTable.refresh();
+
+    }
+
+    @FXML
+    public void exitApplication() {
+        System.out.println("Exit App");
+        FileManager.saveToJson("res/files/playersData.json", players);
+    }
 
 }

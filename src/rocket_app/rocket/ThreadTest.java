@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import org.apache.commons.math3.ode.nonstiff.EulerIntegrator;
-import rocket_app.data.WriteToFile;
+import rocket_app.data.FileManager;
 import rocket_app.equations.RocketODE;
 
 public class ThreadTest {
@@ -32,7 +32,7 @@ public class ThreadTest {
         }
         rocketThread.stop();
 
-        WriteToFile.saveToTxt("Test.txt",rocketParameters);
+        FileManager.saveToTxt("Test.txt",rocketParameters);
 
     }
 }
