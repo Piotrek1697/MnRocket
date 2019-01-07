@@ -13,18 +13,6 @@ public class Player implements Comparable<Player>{
         rank = iterator++;
     }
 
-    public int getRank() {
-        return rank;
-    }
-
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public double getFuel() {
-        return fuel;
-    }
-
     public void setRank(int rank) {
         this.rank = rank;
     }

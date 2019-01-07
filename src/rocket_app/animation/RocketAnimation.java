@@ -15,8 +15,6 @@ public class RocketAnimation {
     private double rocketHeight = 1;
     private AnimationTimer animationTimer;
 
-    private Image mainRocket ;
-
 
     public RocketAnimation(GridPane mainGridPane, GridPane minorGridPane, GridPane groundZeroPane) {
         this.mainGridPane = mainGridPane;
@@ -32,85 +30,59 @@ public class RocketAnimation {
 
             @Override
             public void handle(long now) {
-
                 moveBackground();
                 moveGroundZero();
-
             }
         };
         animationTimer.start();
     }
 
-
     private void moveBackground() {
 
-        mainGridPane.setLayoutY(mainGridPane.getLayoutY() + getRocketSpeed());
-        minorGridPane.setLayoutY(minorGridPane.getLayoutY() + getRocketSpeed());
+        mainGridPane.setLayoutY(mainGridPane.getLayoutY() + rocketSpeed);
+        minorGridPane.setLayoutY(minorGridPane.getLayoutY() + rocketSpeed);
 
-        if (getRocketSpeed() > 0) {
+        if (rocketSpeed > 0) {
 
-
-            if (mainGridPane.getLayoutY() >= 400) {
+            if (mainGridPane.getLayoutY() >= 400)
                 mainGridPane.setLayoutY(-400);
-            }
 
-            if (minorGridPane.getLayoutY() >= 400) {
-
+            if (minorGridPane.getLayoutY() >= 400)
                 minorGridPane.setLayoutY(-400);
 
-            }
+        } else if (rocketSpeed < 0) {
 
-        } else if (getRocketSpeed() < 0) {
-
-
-            if (mainGridPane.getLayoutY() <= -400) {
+            if (mainGridPane.getLayoutY() <= -400)
                 mainGridPane.setLayoutY(400);
-            }
 
-            if (minorGridPane.getLayoutY() <= -400) {
 
+            if (minorGridPane.getLayoutY() <= -400)
                 minorGridPane.setLayoutY(400);
 
-            }
-
-        } else {
-
+        } else
             System.out.println("Velocity 0");
 
-        }
     }
 
     public void setRocketSpeed(double rocketSpeed) {
         this.rocketSpeed = rocketSpeed;
     }
 
-    public double getRocketSpeed() {
-
-        return rocketSpeed;
-
-    }
-
     public void setRocketHeight(double rocketHeight) {
         this.rocketHeight = rocketHeight;
     }
 
-    public double getRocketHeight() {
-        return rocketHeight;
-    }
-
     private void moveGroundZero() {
 
-        if (getRocketHeight() == 0 && getRocketSpeed() < -0.2) {
-            stopBackground();
+        if (rocketHeight == 0 && rocketSpeed < -0.2) {
             System.out.println("Rocked Crashed");
-        } else if (getRocketHeight() == 0 && getRocketSpeed() > -0.2) {
+            stopBackground();
+        } else if (rocketHeight == 0 && rocketSpeed > -0.2) {
             System.out.println("Landed Succesfully");
             stopBackground();
         }
 
-        groundZeroPane.setLayoutY(getRocketHeight() * 10);
-        //groundZeroPane.setLayoutY(getRocketHeight()*(Math.abs(getRocketSpeed()))+10);
-
+        groundZeroPane.setLayoutY(rocketHeight * 10);
     }
 
     private void stopBackground() {
@@ -121,7 +93,7 @@ public class RocketAnimation {
 
     public Image getImage(double power){
 
-            mainRocket = RocketImage.ROCKET.getImage();
+        Image mainRocket = RocketImage.ROCKET.getImage();
 
             if(power > 0)
                 mainRocket = RocketImage.ROCKET_1_10.getImage();
