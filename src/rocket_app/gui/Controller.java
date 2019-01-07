@@ -35,6 +35,9 @@ import java.util.Collections;
 
 public class Controller {
 
+
+    @FXML
+    private Label mnRocketLabel;
     @FXML
     private Button restartGameBtn;
     @FXML
@@ -203,6 +206,8 @@ public class Controller {
         rocketThread.start();
 
         playBackground.setLayoutX(600);
+        addButton.setTranslateX(0);
+        nameTextField.setTranslateX(0);
 
 
     }
@@ -244,7 +249,7 @@ public class Controller {
         rocketAnimation.gameLoop();
         AnimationData.setRocketAnimation(rocketAnimation);
         rocketThread.removeObserver(rocketState);
-
+        endGameStatusLabel.setTranslateX(-300);
         fuelBar.setProgress(1);
 
         playGameBtn(event);
@@ -256,12 +261,15 @@ public class Controller {
 
     public void onGroundReached() {
         Platform.runLater(() -> {
-            playBackground.setLayoutX(0);
-            restartGameBtn.setTranslateX(205);
+
+            setEndWindow();
 
             RocketParameters parameter = rocketParameters.get(rocketParameters.size() - 1);
             if (parameter.getVelocity() >= -2) {
                 endGameStatusLabel.textProperty().set("Success");
+                addButton.setTranslateX(176);
+                nameTextField.setTranslateX(354);
+
             } else {
                 endGameStatusLabel.textProperty().set("Failed");
             }
@@ -298,6 +306,16 @@ public class Controller {
     public void exitApplication() {
         System.out.println("Exit App");
         FileManager.saveToJson("res/files/playersData.json", players);
+    }
+
+    public void setEndWindow(){
+
+        playBackground.setLayoutX(0);
+        restartGameBtn.setTranslateX(192);
+        playGameBtn.setTranslateX(-192);
+        endGameStatusLabel.setTranslateX(300);
+        mnRocketLabel.setTranslateX(-300);
+
     }
 
 }
