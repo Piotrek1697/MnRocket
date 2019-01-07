@@ -2,6 +2,8 @@ package rocket_app.animation;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.GridPane;
+import javafx.scene.image.Image;
+import rocket_app.rocket.RocketImage;
 
 public class RocketAnimation {
 
@@ -12,6 +14,9 @@ public class RocketAnimation {
     private double rocketSpeed;
     private double rocketHeight = 1;
     private AnimationTimer animationTimer;
+
+    private Image mainRocket ;
+
 
     public RocketAnimation(GridPane mainGridPane, GridPane minorGridPane, GridPane groundZeroPane) {
         this.mainGridPane = mainGridPane;
@@ -112,5 +117,42 @@ public class RocketAnimation {
         mainGridPane.setLayoutY(0);
         minorGridPane.setLayoutY(-400);
         animationTimer.stop();
+    }
+
+    public Image getImage(double power){
+
+            mainRocket = RocketImage.ROCKET.getImage();
+
+            if(power > 0)
+                mainRocket = RocketImage.ROCKET_1_10.getImage();
+
+            if(power > 10)
+                mainRocket = RocketImage.ROCKET_10_20.getImage();
+
+            if(power > 20)
+                mainRocket = RocketImage.ROCKET_20_30.getImage();
+
+            if(power > 30)
+               mainRocket = RocketImage.ROCKET_30_40.getImage();
+
+            if(power >40)
+                mainRocket = RocketImage.ROCKET_40_50.getImage();
+
+            if(power > 50)
+                mainRocket = RocketImage.ROCKET_50_60.getImage();
+
+            if(power > 60)
+               mainRocket = RocketImage.ROCKET_60_70.getImage();
+
+            if(power > 70)
+            mainRocket = RocketImage.ROCKET_70_80.getImage();
+
+            if(power > 80)
+            mainRocket = RocketImage.ROCKET_80_90.getImage();
+
+            if(power > 90)
+            mainRocket = RocketImage.ROCKET_90_100.getImage();
+
+        return mainRocket;
     }
 }

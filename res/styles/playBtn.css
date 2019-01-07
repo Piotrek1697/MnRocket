@@ -1,0 +1,22 @@
+.button {
+  
+    -fx-background-color:  #d0b1b1;
+    -fx-border-color:  #745757;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
+    -fx-blend-mode:  multiply;
+
+}
+.button:hover {
+      -fx-scale-y: 1.1;
+      -fx-scale-x: 1.1;
+
+}
+
+.button:pressed {
+
+    -fx-scale-y: 0.9;
+    -fx-scale-x: 0.9;
+    -fx-background-color: #b19595;
+    -fx-border-color:  #745757;
+}

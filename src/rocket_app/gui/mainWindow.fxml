@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="301.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rocket_app.gui.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="301.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rocket_app.gui.Controller">
     <children>
       <ImageView fitHeight="405.0" fitWidth="301.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/images/gapFiller.png" />
          </image>
       </ImageView>
-        <GridPane fx:id="mainGridPane" prefHeight="400.0" prefWidth="301.0">
+        <GridPane fx:id="mainGridPane" prefHeight="405.0" prefWidth="301.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -37,7 +43,7 @@
                 </ImageView>
             </children>
         </GridPane>
-        <GridPane fx:id="minorGridPane" layoutY="-400.0" prefHeight="400.0" prefWidth="301.0">
+        <GridPane fx:id="minorGridPane" layoutY="-400.0" prefHeight="405.0" prefWidth="301.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -73,7 +79,7 @@
             </ImageView>
          </children>
       </GridPane>
-        <GridPane fx:id="rocketPane" layoutX="110.0" layoutY="195.0" prefHeight="93.0" prefWidth="87.0">
+        <GridPane fx:id="rocketPane" alignment="CENTER" layoutX="84.0" layoutY="152.0" prefHeight="196.0" prefWidth="149.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -84,10 +90,10 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <ImageView fitHeight="96.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
-                    <image>
-                        <Image url="@/images/rocketTest.png" />
-                    </image>
+                <ImageView fx:id="rocketImage" fitHeight="220.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
                 </ImageView>
             </children>
         </GridPane>
@@ -95,30 +101,125 @@
             <children>
                 <ImageView fitHeight="405.0" fitWidth="301.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@/images/cocpitTest.png" />
+                        <Image url="@/images/mainCocpit2.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="playGameBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="117.0" layoutY="369.0" mnemonicParsing="false" onAction="#playGameBtn" prefHeight="30.0" prefWidth="68.0" style="-fx-border-radius: 40; -fx-background-radius: 40;" text="PLAY">
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                </Button>
-                <Label fx:id="heightLabel" alignment="CENTER" layoutX="116.0" layoutY="1.0" prefHeight="37.0" prefWidth="78.0" style="-fx-border-color: grey; -fx-border-radius: 20;" text="HEIGHT">
+                <Label fx:id="heightLabel" alignment="CENTER" layoutX="111.0" prefHeight="37.0" prefWidth="78.0" style="-fx-border-radius: 20;" text="HEIGHT">
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>
                 </Label>
-                <Label fx:id="velocityLabel" alignment="CENTER" layoutX="103.0" layoutY="329.0" prefHeight="37.0" prefWidth="94.0" style="-fx-border-color: grey; -fx-border-radius: 20;" text="VELOCITY" />
-                <Slider fx:id="thrustSlider" layoutX="215.0" layoutY="320.0" orientation="VERTICAL" prefHeight="79.0" prefWidth="30.0" />
-                <ProgressBar fx:id="fuelBar" layoutX="36.0" layoutY="353.0" prefHeight="13.0" prefWidth="68.0" progress="0.0" rotate="-90.0" />
-            <Label layoutX="13.0" layoutY="361.0" text="FUEL" />
-            <Label fx:id="fuelLabel" layoutX="16.0" layoutY="376.0" text="000" />
-            <Label layoutX="246.0" layoutY="361.0" text="POWER" />
-            <Label fx:id="powerLabel" layoutX="256.0" layoutY="376.0" text="000" />
-            <Label layoutX="279.0" layoutY="376.0" prefHeight="17.0" prefWidth="13.0" text="\%" />
-            <Label layoutX="39.0" layoutY="376.0" prefHeight="17.0" prefWidth="13.0" text="\%" />
-            <Button fx:id="statistisWindowBtn" layoutX="90.0" layoutY="372.0" mnemonicParsing="false" onAction="#pressStatWindowBtn" prefHeight="25.0" prefWidth="13.0" text="Statistic" />
+                <Label fx:id="velocityLabel" alignment="CENTER" layoutX="124.0" layoutY="316.0" prefHeight="44.0" prefWidth="53.0" style="-fx-border-radius: 20;" text="VELOCITY" />
+                <Slider fx:id="thrustSlider" layoutX="202.0" layoutY="316.0" orientation="VERTICAL" prefHeight="87.0" prefWidth="41.0" />
+                <ProgressBar fx:id="fuelBar" layoutX="38.0" layoutY="353.0" prefHeight="13.0" prefWidth="78.0" progress="0.0" rotate="-90.0" stylesheets="@/styles/progressBar.css">
+               <styleClass>
+                  <String fx:value="bar" />
+                  <String fx:value="track" />
+               </styleClass></ProgressBar>
+            <Label layoutX="33.0" layoutY="383.0" text="FUEL" textFill="#d0d0d0" />
+            <Label fx:id="fuelLabel" layoutX="36.0" layoutY="370.0" text="000" textFill="#d0d0d0" />
+            <Label layoutX="230.0" layoutY="383.0" text="POWER" textFill="#d0d0d0" />
+            <Label fx:id="powerLabel" layoutX="230.0" layoutY="370.0" text="000" textFill="#d0d0d0" />
+            <Label layoutX="250.0" layoutY="370.0" prefHeight="17.0" prefWidth="13.0" text="\%" textFill="#d0d0d0" />
+            <Label layoutX="56.0" layoutY="371.0" prefHeight="17.0" prefWidth="13.0" text="\%" textFill="#d0d0d0" />
+            <Button fx:id="statistisWindowBtn" layoutX="107.0" layoutY="359.0" mnemonicParsing="false" onAction="#pressStatWindowBtn" prefHeight="17.0" prefWidth="87.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" stylesheets="@/styles/btnClickEffect.css" text="Statistic">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <font>
+                  <Font size="10.0" />
+               </font></Button>
+            <GridPane fx:id="playBackground" prefHeight="405.0" prefWidth="301.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <ImageView fitHeight="405.0" fitWidth="301.0" opacity="0.88" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/images/playBackground.png" />
+                     </image>
+                  </ImageView>
+                  <AnchorPane prefHeight="268.0" prefWidth="301.0">
+                     <children>
+                        <GridPane layoutX="39.0" layoutY="185.0" opacity="0.6" prefHeight="206.0" prefWidth="224.0" style="-fx-background-color: #b8a2a2;">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <TableView fx:id="leadersTable" prefHeight="201.0" prefWidth="224.0" style="-fx-background-radius: 5; -fx-border-radius: 5;">
+                                <columns>
+                                  <TableColumn fx:id="rankColumn" prefWidth="75.0" text="Rank" />
+                                  <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
+                                    <TableColumn fx:id="fuelColumn" prefWidth="75.0" text="Fuel [kg]" />
+                                </columns>
+                                 <effect>
+                                    <InnerShadow choke="0.26" height="30.0" radius="14.5" width="30.0" />
+                                 </effect>
+                              </TableView>
+                           </children>
+                        </GridPane>
+                            <Button fx:id="playGameBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="116.0" layoutY="93.0" mnemonicParsing="false" onAction="#playGameBtn" prefHeight="70.0" prefWidth="70.0" stylesheets="@/styles/playBtn.css" text="PLAY" textAlignment="CENTER">
+                                <opaqueInsets>
+                                    <Insets />
+                                </opaqueInsets>
+                           <font>
+                              <Font name="Agency FB" size="20.0" />
+                           </font>
+                            </Button>
+                        <Label fx:id="mnRocketLabel" alignment="CENTER" layoutX="1.0" layoutY="21.0" prefHeight="51.0" prefWidth="300.0" style="-fx-border-color: grey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #d0b1b1; -fx-blend-mode: multiply;" text="MnRocket" textAlignment="CENTER">
+                           <font>
+                              <Font name="Agency FB" size="35.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="nameTextField" alignment="CENTER" layoutX="-277.0" layoutY="157.0" onAction="#addRecord" prefHeight="23.0" prefWidth="188.0" promptText="username" style="-fx-blend-mode: multiply;" />
+                        <Button fx:id="addButton" layoutX="-139.0" layoutY="156.0" mnemonicParsing="false" onAction="#addRecord" prefHeight="25.0" prefWidth="41.0" stylesheets="@/styles/addBtn.css" text="Add">
+                           <effect>
+                              <InnerShadow />
+                           </effect></Button>
+                        <Label fx:id="endFuelLabel" alignment="CENTER" layoutX="-220.0" layoutY="117.0" prefHeight="30.0" prefWidth="110.0" style="-fx-border-color: grey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #d0b1b1; -fx-blend-mode: multiply;" textAlignment="CENTER">
+                           <font>
+                              <Font name="Agency FB" size="28.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="endSpeedLabel" alignment="CENTER" layoutX="-110.0" layoutY="117.0" prefHeight="37.0" prefWidth="110.0" style="-fx-border-color: grey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #d0b1b1; -fx-blend-mode: multiply;" textAlignment="CENTER">
+                           <font>
+                              <Font name="Agency FB" size="28.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="endHeadFuelLabel" alignment="CENTER" layoutX="-220.0" layoutY="76.0" prefHeight="36.0" prefWidth="110.0" style="-fx-border-color: grey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #d0b1b1; -fx-blend-mode: multiply;" text="Fuel" textAlignment="CENTER">
+                           <font>
+                              <Font name="Agency FB" size="28.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="endHeadSpeedLabel" alignment="CENTER" layoutX="-110.0" layoutY="75.0" prefHeight="37.0" prefWidth="110.0" style="-fx-border-color: grey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #d0b1b1; -fx-blend-mode: multiply;" text="Speed" textAlignment="CENTER">
+                           <font>
+                              <Font name="Agency FB" size="28.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </GridPane>
             </children>
         </AnchorPane>
+      <Button fx:id="restartGameBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="-76.0" layoutY="79.0" mnemonicParsing="false" onAction="#restartGameBtn" prefHeight="70.0" prefWidth="70.0" stylesheets="@/styles/playBtn.css" text="RESTART" textAlignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <font>
+            <Font name="Agency FB" size="15.0" />
+         </font>
+      </Button>
+      <Label fx:id="endGameStatusLabel" alignment="CENTER" layoutX="-301.0" layoutY="21.0" prefHeight="51.0" prefWidth="301.0" style="-fx-border-color: grey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #d0b1b1; -fx-blend-mode: multiply;" textAlignment="CENTER">
+         <font>
+            <Font name="Agency FB" size="35.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>
