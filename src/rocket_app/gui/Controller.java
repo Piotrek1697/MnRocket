@@ -316,7 +316,7 @@ public class Controller {
     void addRecord(ActionEvent event) {
         String playerName = nameTextField.textProperty().getValue();
 
-        players.add(new Player(playerName, finalFuelMass));
+        players.add(new Player(playerName, Math.round(finalFuelMass*100.0)/100.0));
 
         sortPlayers();
 

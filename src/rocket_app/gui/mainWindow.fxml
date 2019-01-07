@@ -154,9 +154,9 @@
                            <children>
                               <TableView fx:id="leadersTable" prefHeight="201.0" prefWidth="224.0" style="-fx-background-radius: 5; -fx-border-radius: 5;">
                                 <columns>
+                                  <TableColumn fx:id="rankColumn" prefWidth="75.0" text="Rank" />
                                   <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
                                     <TableColumn fx:id="fuelColumn" prefWidth="75.0" text="Fuel [kg]" />
-                                  <TableColumn fx:id="rankColumn" prefWidth="75.0" text="Rank" />
                                 </columns>
                                  <effect>
                                     <InnerShadow choke="0.26" height="30.0" radius="14.5" width="30.0" />
@@ -168,6 +168,9 @@
                                 <opaqueInsets>
                                     <Insets />
                                 </opaqueInsets>
+                           <font>
+                              <Font name="Agency FB" size="20.0" />
+                           </font>
                             </Button>
                         <Label fx:id="mnRocketLabel" alignment="CENTER" layoutX="1.0" layoutY="21.0" prefHeight="51.0" prefWidth="300.0" style="-fx-border-color: grey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #d0b1b1; -fx-blend-mode: multiply;" text="MnRocket" textAlignment="CENTER">
                            <font>
@@ -209,6 +212,9 @@
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
+         <font>
+            <Font name="Agency FB" size="15.0" />
+         </font>
       </Button>
       <Label fx:id="endGameStatusLabel" alignment="CENTER" layoutX="-301.0" layoutY="21.0" prefHeight="51.0" prefWidth="301.0" style="-fx-border-color: grey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #d0b1b1; -fx-blend-mode: multiply;" textAlignment="CENTER">
          <font>
