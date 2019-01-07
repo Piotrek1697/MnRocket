@@ -1,11 +1,11 @@
 package rocket_app.gui;
 
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -15,9 +15,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BackgroundFill;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
@@ -144,6 +143,8 @@ public class Controller {
 
         initializeTable();
         loadJsonToTable();
+
+        thrustSlider.setOnKeyPressed(event -> handleMovementKeys(event));
 
     }
 
@@ -349,6 +350,25 @@ public class Controller {
         endFuelLabel.setTranslateX(223);
         endHeadSpeedLabel.setTranslateX(299);
         endSpeedLabel.setTranslateX(299);
+    }
+
+    public void handleMovementKeys(KeyEvent event){
+
+        switch (event.getCode()){
+            case W:
+                thrustSlider.setValue(thrustSlider.getValue() + 1);
+                break;
+            case S:
+                thrustSlider.setValue(thrustSlider.getValue() - 1);
+                break;
+            case UP:
+                thrustSlider.setValue(thrustSlider.getValue() + 1);
+                break;
+            case DOWN:
+                thrustSlider.setValue(thrustSlider.getValue() - 1);
+                break;
+        }
+        event.consume();
     }
 
 }
