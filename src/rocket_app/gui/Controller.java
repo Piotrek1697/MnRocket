@@ -261,6 +261,7 @@ public class Controller {
         rocketThread.removeObserver(rocketState);
         endGameStatusLabel.setTranslateX(-300);
         fuelBar.setProgress(1);
+        thrustSlider.setDisable(false);
 
         playGameBtn(event);
         restartGameBtn.setTranslateX(0);
