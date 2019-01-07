@@ -144,7 +144,7 @@
                   </ImageView>
                   <AnchorPane prefHeight="268.0" prefWidth="301.0">
                      <children>
-                        <GridPane layoutX="39.0" layoutY="181.0" opacity="0.6" prefHeight="206.0" prefWidth="224.0" style="-fx-background-color: #b8a2a2;">
+                        <GridPane layoutX="39.0" layoutY="185.0" opacity="0.6" prefHeight="206.0" prefWidth="224.0" style="-fx-background-color: #b8a2a2;">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
@@ -152,7 +152,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <TableView fx:id="leadersTable" prefHeight="201.0" prefWidth="224.0" style="-fx-background-color: #d0b1b1; -fx-background-radius: 5; -fx-border-radius: 5;">
+                              <TableView fx:id="leadersTable" prefHeight="201.0" prefWidth="224.0" style="-fx-background-radius: 5; -fx-border-radius: 5;">
                                 <columns>
                                   <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
                                     <TableColumn fx:id="fuelColumn" prefWidth="75.0" text="Fuel [kg]" />
@@ -169,25 +169,48 @@
                                     <Insets />
                                 </opaqueInsets>
                             </Button>
-                        <Label fx:id="mnRocketLabel" alignment="CENTER" layoutY="21.0" prefHeight="51.0" prefWidth="302.0" style="-fx-border-color: grey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #d0b1b1; -fx-blend-mode: multiply;" text="MnRocket" textAlignment="CENTER">
+                        <Label fx:id="mnRocketLabel" alignment="CENTER" layoutX="1.0" layoutY="21.0" prefHeight="51.0" prefWidth="300.0" style="-fx-border-color: grey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #d0b1b1; -fx-blend-mode: multiply;" text="MnRocket" textAlignment="CENTER">
                            <font>
                               <Font name="Agency FB" size="35.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="nameTextField" layoutX="-277.0" layoutY="157.0" prefHeight="23.0" prefWidth="188.0" style="-fx-blend-mode: multiply;" />
-                        <Button fx:id="addButton" layoutX="-139.0" layoutY="156.0" mnemonicParsing="false" onAction="#addRecord" prefHeight="25.0" prefWidth="41.0" stylesheets="@/styles/addBtn.css" text="Add" />
+                        <TextField fx:id="nameTextField" alignment="CENTER" layoutX="-277.0" layoutY="157.0" prefHeight="23.0" prefWidth="188.0" promptText="username" style="-fx-blend-mode: multiply;" />
+                        <Button fx:id="addButton" layoutX="-139.0" layoutY="156.0" mnemonicParsing="false" onAction="#addRecord" prefHeight="25.0" prefWidth="41.0" stylesheets="@/styles/addBtn.css" text="Add">
+                           <effect>
+                              <InnerShadow />
+                           </effect></Button>
+                        <Label fx:id="endFuelLabel" alignment="CENTER" layoutX="-220.0" layoutY="117.0" prefHeight="30.0" prefWidth="110.0" style="-fx-border-color: grey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #d0b1b1; -fx-blend-mode: multiply;" textAlignment="CENTER">
+                           <font>
+                              <Font name="Agency FB" size="28.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="endSpeedLabel" alignment="CENTER" layoutX="-110.0" layoutY="117.0" prefHeight="37.0" prefWidth="110.0" style="-fx-border-color: grey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #d0b1b1; -fx-blend-mode: multiply;" textAlignment="CENTER">
+                           <font>
+                              <Font name="Agency FB" size="28.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="endHeadFuelLabel" alignment="CENTER" layoutX="-220.0" layoutY="76.0" prefHeight="36.0" prefWidth="110.0" style="-fx-border-color: grey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #d0b1b1; -fx-blend-mode: multiply;" text="Fuel" textAlignment="CENTER">
+                           <font>
+                              <Font name="Agency FB" size="28.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="endHeadSpeedLabel" alignment="CENTER" layoutX="-110.0" layoutY="75.0" prefHeight="37.0" prefWidth="110.0" style="-fx-border-color: grey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #d0b1b1; -fx-blend-mode: multiply;" text="Speed" textAlignment="CENTER">
+                           <font>
+                              <Font name="Agency FB" size="28.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </children>
             </GridPane>
             </children>
         </AnchorPane>
-      <Button fx:id="restartGameBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="-76.0" layoutY="82.0" mnemonicParsing="false" onAction="#restartGameBtn" prefHeight="70.0" prefWidth="70.0" stylesheets="@/styles/playBtn.css" text="RESTART" textAlignment="CENTER">
+      <Button fx:id="restartGameBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="-76.0" layoutY="79.0" mnemonicParsing="false" onAction="#restartGameBtn" prefHeight="70.0" prefWidth="70.0" stylesheets="@/styles/playBtn.css" text="RESTART" textAlignment="CENTER">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </Button>
-      <Label fx:id="endGameStatusLabel" alignment="CENTER" layoutX="-301.0" layoutY="25.0" prefHeight="51.0" prefWidth="301.0" style="-fx-border-color: grey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #d0b1b1; -fx-blend-mode: multiply;" textAlignment="CENTER">
+      <Label fx:id="endGameStatusLabel" alignment="CENTER" layoutX="-301.0" layoutY="21.0" prefHeight="51.0" prefWidth="301.0" style="-fx-border-color: grey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #d0b1b1; -fx-blend-mode: multiply;" textAlignment="CENTER">
          <font>
             <Font name="Agency FB" size="35.0" />
          </font>

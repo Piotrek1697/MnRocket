@@ -1,6 +1,7 @@
 package rocket_app.gui;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -14,7 +15,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
@@ -30,12 +33,20 @@ import rocket_app.rocket.RocketState;
 import rocket_app.rocket.RocketThread;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Collections;
 
 public class Controller {
 
-
+    @FXML
+    private Label endHeadFuelLabel;
+    @FXML
+    private Label endHeadSpeedLabel;
+    @FXML
+    private Label endFuelLabel;
+    @FXML
+    private Label endSpeedLabel;
     @FXML
     private Label mnRocketLabel;
     @FXML
@@ -93,6 +104,8 @@ public class Controller {
     private RocketThread rocketThread = new RocketThread();
     private RocketState rocketState;
 
+
+
     private final static double gravity = 1.63;
     private final static int flameVelocity = 636;
     private final static double dt = 0.1;
@@ -101,6 +114,9 @@ public class Controller {
     private final static double fullTank = 1730.14;
     private final static double fullPower = -16.5;
     private final static double sliderValue = 0;
+    private double finalFuelMass;
+    private double finalSpeed;
+    private static DecimalFormat df2 = new DecimalFormat(".##");
     private final static String playersJsonFileName = "playersData.json";
 
     private static Controller controller;
@@ -144,9 +160,19 @@ public class Controller {
     }
 
     private void initializeTable(){
+
+
+        String color = "-fx-background-color:  #d0b1b1";
+
+        leadersTable.setStyle(color);
         fuelColumn.setCellValueFactory(new PropertyValueFactory<>("fuel"));
+        fuelColumn.setStyle(color);
         rankColumn.setCellValueFactory(new PropertyValueFactory<>("rank"));
+        rankColumn.setStyle(color);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("playerName"));
+        nameColumn.setStyle(color);
+
+
     }
 
 
@@ -263,6 +289,10 @@ public class Controller {
         Platform.runLater(() -> {
 
             setEndWindow();
+            finalFuelMass = rocketParameters.get(rocketParameters.size() - 1).getMass() - rocketMass;
+            finalSpeed = rocketParameters.get(rocketParameters.size() - 1).getVelocity();
+            endFuelLabel.textProperty().set(String.valueOf(df2.format(finalFuelMass) + " kg"));
+            endSpeedLabel.textProperty().set(String.valueOf(df2.format(finalSpeed) + "m/s"));
 
             RocketParameters parameter = rocketParameters.get(rocketParameters.size() - 1);
             if (parameter.getVelocity() >= -2) {
@@ -284,11 +314,11 @@ public class Controller {
     @FXML
     void addRecord(ActionEvent event) {
         String playerName = nameTextField.textProperty().getValue();
-        double fuelMass = rocketParameters.get(rocketParameters.size() - 1).getMass() - rocketMass;
 
-        players.add(new Player(playerName, fuelMass));
+        players.add(new Player(playerName, finalFuelMass));
 
         sortPlayers();
+
 
     }
 
@@ -315,7 +345,10 @@ public class Controller {
         playGameBtn.setTranslateX(-192);
         endGameStatusLabel.setTranslateX(300);
         mnRocketLabel.setTranslateX(-300);
-
+        endHeadFuelLabel.setTranslateX(223);
+        endFuelLabel.setTranslateX(223);
+        endHeadSpeedLabel.setTranslateX(299);
+        endSpeedLabel.setTranslateX(299);
     }
 
 }

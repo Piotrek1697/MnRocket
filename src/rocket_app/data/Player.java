@@ -36,6 +36,6 @@ public class Player implements Comparable<Player>{
 
     @Override
     public int compareTo(Player o) {
-        return Double.compare(fuel,o.fuel);
+        return Double.compare(o.fuel,fuel);
     }
 }
