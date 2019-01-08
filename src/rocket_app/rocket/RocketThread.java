@@ -15,10 +15,6 @@ public class RocketThread implements Runnable, Observable {
     private double mi;
     private volatile ArrayList<Observer> observerList = new ArrayList<>();
 
-    public RocketThread() {
-
-    }
-
     public void setMi(double mi) {
         this.mi = mi;
     }
@@ -76,9 +72,6 @@ public class RocketThread implements Runnable, Observable {
                 Thread.currentThread().interrupt();
                 System.out.println("Thread interrupted");
             }
-
         }
-
-
     }
 }

@@ -5,7 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -13,7 +12,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -30,7 +28,6 @@ import rocket_app.equations.RocketODE;
 import rocket_app.rocket.RocketParameters;
 import rocket_app.rocket.RocketState;
 import rocket_app.rocket.RocketThread;
-
 import java.io.File;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -94,29 +91,30 @@ public class Controller {
     private Button addButton;
 
 
-    private Image image;
-
-
+    private static final DecimalFormat df2 = new DecimalFormat(".##");
     private RocketAnimation rocketAnimation;
     private ObservableList<RocketParameters> rocketParameters = FXCollections.observableArrayList();
     private ObservableList<Player> players = FXCollections.observableArrayList();
     private RocketThread rocketThread = new RocketThread();
     private RocketState rocketState;
 
-
-
     private final static double gravity = 1.63;
     private final static int flameVelocity = 636;
     private final static double dt = 0.1;
+
     private final static String rocketName = "Rocket1";
     private final static double rocketMass = 1000;
     private final static double fullTank = 1730.14;
     private final static double fullPower = -16.5;
     private final static double sliderValue = 0;
+
+    private final static double heightStart = 50000;
+    private final static double velocityStart = -150;
+
     private double finalFuelMass;
     private double finalSpeed;
-    private static DecimalFormat df2 = new DecimalFormat(".##");
-    private final static String playersJsonFileName = "playersData.json";
+
+    private final static String playersJsonPath = "res/files/playersData.json";
 
     private static Controller controller;
 
@@ -128,7 +126,6 @@ public class Controller {
         rocketAnimation.gameLoop();
         rocketAnimation.setRocketSpeed(3);
         AnimationData.setRocketAnimation(rocketAnimation);
-
 
         fuelBar.setProgress(1);
 
@@ -145,11 +142,10 @@ public class Controller {
         loadJsonToTable();
 
         thrustSlider.setOnKeyPressed(event -> handleMovementKeys(event));
-
     }
 
     private void loadJsonToTable() {
-        File jsonFile = new File("res/files/playersData.json");
+        File jsonFile = new File(playersJsonPath);
         if (!jsonFile.exists()) {
             System.out.println("File doesn't exists");
         } else {
@@ -160,9 +156,7 @@ public class Controller {
         sortPlayers();
     }
 
-    private void initializeTable(){
-
-
+    private void initializeTable() {
         String color = "-fx-background-color:  #d0b1b1";
 
         leadersTable.setStyle(color);
@@ -172,10 +166,7 @@ public class Controller {
         rankColumn.setStyle(color);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("playerName"));
         nameColumn.setStyle(color);
-
-
     }
-
 
     private void updateLabelsValues() {
         Platform.runLater(() -> {
@@ -201,11 +192,8 @@ public class Controller {
                     thrustSlider.setDisable(true);
                 }
 
-
                 fuelLabel.textProperty().set(String.format("%.0f", state * 100));
-
                 fuelBar.setProgress(state);
-
             }
         });
     }
@@ -213,9 +201,7 @@ public class Controller {
     private void setThrustOfRocket() {
         Platform.runLater(() -> {
             rocketThread.setMi((thrustSlider.getValue() / 100) * fullPower);
-
         });
-
     }
 
     @FXML
@@ -227,7 +213,7 @@ public class Controller {
         powerLabel.setText(Double.toString(sliderValue));
         powerLabel.textProperty().bindBidirectional(thrustSlider.valueProperty(), NumberFormat.getIntegerInstance());
 
-        rocketState = new RocketState(rocketODE, integrator, rocketParameters, rocketName);
+        rocketState = new RocketState(rocketODE, integrator, rocketParameters, rocketName, new double[]{heightStart, velocityStart, rocketMass + fullTank});
         rocketThread.addObserver(rocketState);
 
         rocketThread.start();
@@ -235,8 +221,6 @@ public class Controller {
         playBackground.setLayoutX(600);
         addButton.setTranslateX(0);
         nameTextField.setTranslateX(0);
-
-
     }
 
     @FXML
@@ -251,7 +235,6 @@ public class Controller {
         statisticStage.setScene(statisticScene);
         statisticStage.setResizable(false);
 
-        //Set stage coordinates relative to previous window
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         statisticStage.setX(5 * primScreenBounds.getWidth() / 8);
         statisticStage.setY(primScreenBounds.getHeight() / 6);
@@ -278,6 +261,7 @@ public class Controller {
         rocketThread.removeObserver(rocketState);
         endGameStatusLabel.setTranslateX(-300);
         fuelBar.setProgress(1);
+        thrustSlider.setDisable(false);
 
         playGameBtn(event);
         restartGameBtn.setTranslateX(0);
@@ -292,6 +276,7 @@ public class Controller {
             setEndWindow();
             finalFuelMass = rocketParameters.get(rocketParameters.size() - 1).getMass() - rocketMass;
             finalSpeed = rocketParameters.get(rocketParameters.size() - 1).getVelocity();
+
             endFuelLabel.textProperty().set(String.valueOf(df2.format(finalFuelMass) + " kg"));
             endSpeedLabel.textProperty().set(String.valueOf(df2.format(finalSpeed) + "m/s"));
 
@@ -300,27 +285,16 @@ public class Controller {
                 endGameStatusLabel.textProperty().set("Success");
                 addButton.setTranslateX(176);
                 nameTextField.setTranslateX(354);
-
-            } else {
+            } else
                 endGameStatusLabel.textProperty().set("Failed");
-            }
         });
-
-    }
-
-    public static Controller getController() {
-        return controller;
     }
 
     @FXML
-    void addRecord(ActionEvent event) {
+    void addPlayer(ActionEvent event) {
         String playerName = nameTextField.textProperty().getValue();
-
-        players.add(new Player(playerName, Math.round(finalFuelMass*100.0)/100.0));
-
+        players.add(new Player(playerName, Math.round(finalFuelMass * 100.0) / 100.0));
         sortPlayers();
-
-
     }
 
     private void sortPlayers() {
@@ -330,17 +304,9 @@ public class Controller {
             players.get(i).setRank(i + 1);
         }
         leadersTable.refresh();
-
     }
 
-    @FXML
-    public void exitApplication() {
-        System.out.println("Exit App");
-        FileManager.saveToJson("res/files/playersData.json", players);
-    }
-
-    public void setEndWindow(){
-
+    public void setEndWindow() {
         playBackground.setLayoutX(0);
         restartGameBtn.setTranslateX(192);
         playGameBtn.setTranslateX(-192);
@@ -352,9 +318,9 @@ public class Controller {
         endSpeedLabel.setTranslateX(299);
     }
 
-    public void handleMovementKeys(KeyEvent event){
+    public void handleMovementKeys(KeyEvent event) {
 
-        switch (event.getCode()){
+        switch (event.getCode()) {
             case W:
                 thrustSlider.setValue(thrustSlider.getValue() + 1);
                 break;
@@ -369,6 +335,16 @@ public class Controller {
                 break;
         }
         event.consume();
+    }
+
+    public static Controller getController() {
+        return controller;
+    }
+
+    @FXML
+    public void exitApplication() {
+        System.out.println("Exit App");
+        FileManager.saveToJson(playersJsonPath, players);
     }
 
 }

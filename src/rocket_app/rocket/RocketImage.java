@@ -15,8 +15,8 @@ public enum RocketImage {
     ROCKET_80_90(new Image(RocketImage.class.getResourceAsStream("/images/rockets/mainRocket80_90.png"))),
     ROCKET_90_100(new Image(RocketImage.class.getResourceAsStream("/images/rockets/mainRocket90_100.png")));
 
-
     private final Image image;
+
 
     RocketImage(Image image) {
         this.image = image;

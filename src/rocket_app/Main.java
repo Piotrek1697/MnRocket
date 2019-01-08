@@ -18,13 +18,14 @@ public class Main extends Application {
         Parent root = loader.load();
         Controller controller = loader.getController();
         primaryStage.setTitle("Lunar Landing");
-        Scene scene = new Scene(root, 301, 405);
+        Scene scene = new Scene(root, 290, 395);
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setResizable(false);
 
         primaryStage.setOnCloseRequest(event -> {
             controller.exitApplication();
-            Platform.exit(); //all thread exit
+            Platform.exit();
             System.exit(0);
         });
 

@@ -18,12 +18,14 @@ public class RocketState implements Observer {
     private FirstOrderIntegrator integrator;
     private String rocketName;
     private AnimationData animationData = new AnimationData();
+    private double[] startValues;
 
-    public RocketState(FirstOrderDifferentialEquations equation, FirstOrderIntegrator integrator, ObservableList<RocketParameters> rocketParameters, String rocketName) {
+    public RocketState(FirstOrderDifferentialEquations equation, FirstOrderIntegrator integrator, ObservableList<RocketParameters> rocketParameters, String rocketName, double[] startValues) {
         this.rocketParameters = rocketParameters;
         this.equation = equation;
         this.integrator = integrator;
         this.rocketName = rocketName;
+        this.startValues = startValues;
     }
 
     @Override
@@ -36,23 +38,19 @@ public class RocketState implements Observer {
         RocketPath rocketPath = new RocketPath();
         integrator.addStepHandler(rocketPath);
 
-        double[] start;
         double[] stop = new double[]{0, -2000, 1000};
 
-        if (rocketParameters.size() == 0)
-            start = new double[]{50000, -150, 2730.14};
-        else {
+        if (rocketParameters.size() != 0) {
             double height = rocketParameters.get(rocketParameters.size() - 1).getHeight();
             double velocity = rocketParameters.get(rocketParameters.size() - 1).getVelocity();
             double mass = rocketParameters.get(rocketParameters.size() - 1).getMass();
-
-            start = new double[]{height, velocity, mass};
+            startValues = new double[]{height, velocity, mass};
         }
 
         ((RocketODE) equation).setMi(mi);
-        integrator.integrate(equation, 0, start, 0.1, stop);
+        integrator.integrate(equation, 0, startValues, 0.1, stop);
 
-        if (rocketParameters.size() == 10){
+        if (rocketParameters.size() == 10) {
             rocketParameters.clear();
         }
 
@@ -69,7 +67,7 @@ public class RocketState implements Observer {
 
             if (m <= 1001.8) {
                 rocketParameters.add(new RocketParameters(h, v, m));
-                System.out.println(rocketParameters.get(rocketParameters.size()-1).getMass());
+                System.out.println(rocketParameters.get(rocketParameters.size() - 1).getMass());
                 throw new OutOfFuelException("Rocket is out of fuel");
             }
 
@@ -79,7 +77,7 @@ public class RocketState implements Observer {
         sendParametersToAnimationData();
     }
 
-    private void sendParametersToAnimationData(){
-        animationData.setRocketParameter(rocketParameters.get(rocketParameters.size()-1));
+    private void sendParametersToAnimationData() {
+        animationData.setRocketParameter(rocketParameters.get(rocketParameters.size() - 1));
     }
 }
