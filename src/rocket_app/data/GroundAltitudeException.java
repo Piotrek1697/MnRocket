@@ -1,5 +1,8 @@
 package rocket_app.data;
 
+/**
+ * Exception that represents state when rocket hit the floor.
+ */
 public class GroundAltitudeException extends Exception {
 
     public GroundAltitudeException() {

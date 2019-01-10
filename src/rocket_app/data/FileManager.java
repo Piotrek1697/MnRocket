@@ -11,8 +11,16 @@ import rocket_app.rocket.RocketParameters;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Class to manage data, for example loading saving lists to, or from JSON file
+ */
 public class FileManager {
 
+    /**
+     * This method saves observable list of rocket parameters to file
+     * @param fileName - file name must have .txt extension
+     * @param rocketParameters - list of rocket parameters
+     */
     public static void saveToTxt(String fileName, ObservableList<RocketParameters> rocketParameters){
         try (PrintWriter printWriter = new PrintWriter(fileName)) {
             StringBuilder values = new StringBuilder();
@@ -27,6 +35,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * This method saves observable list of players to file
+     * @param fileName - file name must have .json extension
+     * @param players - list of players
+     */
     public static void saveToJson(String fileName, ObservableList<Player> players) {
         Gson gson = new GsonBuilder().create();
 
@@ -39,6 +52,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * This method loads json file
+     * @param file - file that represents json file
+     * @return observable list which contains player objects
+     */
     public static ObservableList<Player> loadFromJson(File file) {
         Gson gson = new GsonBuilder().create();
 
