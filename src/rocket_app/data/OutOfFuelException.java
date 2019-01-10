@@ -1,5 +1,8 @@
 package rocket_app.data;
 
+/**
+ * Exception that represents state when in rocket is no fuel.
+ */
 public class OutOfFuelException extends Exception{
     public OutOfFuelException() {
     }

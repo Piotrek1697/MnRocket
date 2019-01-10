@@ -4,6 +4,10 @@ import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.MaxCountExceededException;
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 
+/**
+ *The method responses for calculating first order differential equations.
+ */
+
 public class RocketODE implements FirstOrderDifferentialEquations {
 
     private double k;

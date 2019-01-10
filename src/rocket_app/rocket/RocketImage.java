@@ -2,6 +2,9 @@ package rocket_app.rocket;
 
 import javafx.scene.image.Image;
 
+/**
+ * This enum class stores images of rocket, for each flame height.
+ */
 public enum RocketImage {
     ROCKET(new Image(RocketImage.class.getResourceAsStream("/images/rockets/mainRocket.png"))),
     ROCKET_1_10(new Image(RocketImage.class.getResourceAsStream("/images/rockets/mainRocket1_10.png"))),
@@ -22,6 +25,9 @@ public enum RocketImage {
         this.image = image;
     }
 
+    /**
+     * @return image of rocket
+     */
     public Image getImage() {
         return image;
     }

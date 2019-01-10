@@ -14,6 +14,9 @@ import rocket_app.rocket.RocketParameters;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Class that represents statistics of rocket.
+ */
 public class StatisticController {
 
     @FXML
@@ -26,11 +29,18 @@ public class StatisticController {
     private static XYChart.Series<Number, Number> statisticSeries = new XYChart.Series<>();
     private ObservableList<RocketParameters> rocketParameters;
 
+    /**
+     * @param rocketParameters - observable list of rocket parameters
+     */
     public void setRocketParameters(ObservableList<RocketParameters> rocketParameters) {
         this.rocketParameters = rocketParameters;
         rocketParametersListener();
     }
 
+    /**
+     * Rocket parameters observable list listener.
+     * Adding data to chart every 10 object.
+     */
     private void rocketParametersListener(){
         rocketParameters.addListener((ListChangeListener<RocketParameters>) c -> {
             int parametersSize = rocketParameters.size();
@@ -43,6 +53,9 @@ public class StatisticController {
         });
     }
 
+    /**
+     * Initialize chart
+     */
     @FXML
     public void initialize() {
         statisticLineChart.getData().add(statisticSeries);
@@ -52,6 +65,9 @@ public class StatisticController {
         yAxis.setLabel("Height [m]");
     }
 
+    /**
+     * @return chart series
+     */
     public static XYChart.Series<Number, Number> getStatisticSeries() {
         return statisticSeries;
     }

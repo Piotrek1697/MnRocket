@@ -8,6 +8,9 @@ import rocket_app.model.Observer;
 
 import java.util.ArrayList;
 
+/**
+ * Thread where rocket simulation happens.
+ */
 public class RocketThread implements Runnable, Observable {
 
     private Thread thread;
@@ -15,10 +18,17 @@ public class RocketThread implements Runnable, Observable {
     private double mi;
     private volatile ArrayList<Observer> observerList = new ArrayList<>();
 
+    /**
+     * @param mi - rocket thrust
+     */
     public void setMi(double mi) {
         this.mi = mi;
     }
 
+    /**
+     * Adding observer to this thread
+     * @param observer - object that implements Observer interface
+     */
     @Override
     public void addObserver(Observer observer) {
         if (!observerList.contains(observer)) {
@@ -26,6 +36,10 @@ public class RocketThread implements Runnable, Observable {
         }
     }
 
+    /**
+     * Removing observer from thread
+     * @param observer - object that implements Observer interface
+     */
     @Override
     public void removeObserver(Observer observer) {
         if (observerList.contains(observer)) {
@@ -33,6 +47,10 @@ public class RocketThread implements Runnable, Observable {
         }
     }
 
+    /**
+     * Updating observer. Every time this method is called mi value is sending to observer.
+     * Handle GroundAltitudeException and OutOfFuelException.
+     */
     @Override
     public void updateObservers() {
         for (Observer o : observerList) {
@@ -49,16 +67,25 @@ public class RocketThread implements Runnable, Observable {
         }
     }
 
+    /**
+     * Starts thread
+     */
     public void start(){
         thread = new Thread(this,"Rocket Thread");
         thread.start();
     }
 
+    /**
+     * Stops thread
+     */
     public void stop(){
         isRunning = false;
         thread.interrupt();
     }
 
+    /**
+     * This method is running when called thread start
+     */
     @Override
     public void run() {
         isRunning = true;

@@ -8,6 +8,9 @@ import org.apache.commons.math3.ode.nonstiff.EulerIntegrator;
 import rocket_app.data.FileManager;
 import rocket_app.equations.RocketODE;
 
+/**
+ * Class done to test equation implementation and working of RocketThread.
+ */
 public class ThreadTest {
     public static void main(String[] args) {
         ObservableList<RocketParameters> rocketParameters = FXCollections.observableArrayList();

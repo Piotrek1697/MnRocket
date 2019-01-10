@@ -10,7 +10,9 @@ import rocket_app.equations.RocketODE;
 import rocket_app.equations.RocketPath;
 import rocket_app.model.Observer;
 
-
+/**
+ * Class that represents rocket, stores list of rocket parameters and equation with which can calculations be done.
+ */
 public class RocketState implements Observer {
 
     private ObservableList<RocketParameters> rocketParameters;
@@ -20,6 +22,13 @@ public class RocketState implements Observer {
     private AnimationData animationData = new AnimationData();
     private double[] startValues;
 
+    /**
+     * @param equation - object that contains equation of rocket simulation
+     * @param integrator - object of integrator mechanism
+     * @param rocketParameters - observable list that contains rocket parameters
+     * @param rocketName - name of rocket
+     * @param startValues - begin of simulation values {height, start velocity, rocket + fuel in tank mass}
+     */
     public RocketState(FirstOrderDifferentialEquations equation, FirstOrderIntegrator integrator, ObservableList<RocketParameters> rocketParameters, String rocketName, double[] startValues) {
         this.rocketParameters = rocketParameters;
         this.equation = equation;
@@ -28,11 +37,20 @@ public class RocketState implements Observer {
         this.startValues = startValues;
     }
 
+    /**
+     * @return name of rocket
+     */
     @Override
     public String getObserverName() {
         return rocketName;
     }
 
+    /**
+     * Updating state of rocket, calculating height, velocity, mass and after this it's sending these data to AnimationData object.
+     * @param mi - thrust of rocket
+     * @throws GroundAltitudeException - when rocket reach the ground (moon)
+     * @throws OutOfFuelException - when rocket is out of fuel
+     */
     @Override
     public void updateParameters(double mi) throws GroundAltitudeException, OutOfFuelException {
         RocketPath rocketPath = new RocketPath();
@@ -77,6 +95,9 @@ public class RocketState implements Observer {
         sendParametersToAnimationData();
     }
 
+    /**
+     * Sends list of rocket parameters to AnimationData object.
+     */
     private void sendParametersToAnimationData() {
         animationData.setRocketParameter(rocketParameters.get(rocketParameters.size() - 1));
     }

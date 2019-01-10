@@ -4,7 +4,12 @@ import org.apache.commons.math3.exception.MaxCountExceededException;
 import org.apache.commons.math3.ode.sampling.StepHandler;
 import org.apache.commons.math3.ode.sampling.StepInterpolator;
 
+
 import java.util.ArrayList;
+
+/**
+ * The class accepts the data of euler integrator results and saves its in arrays.
+ */
 
 public class RocketPath implements StepHandler {
 
@@ -30,6 +35,14 @@ public class RocketPath implements StepHandler {
     public void init(double v, double[] doubles, double v1) {
 
     }
+
+    /**
+     * The method depends for optimization memory of game.
+     * Handles step integrator.
+     * @param stepInterpolator
+     * @param b
+     * @throws MaxCountExceededException
+     */
 
     @Override
     public void handleStep(StepInterpolator stepInterpolator, boolean b) throws MaxCountExceededException {
