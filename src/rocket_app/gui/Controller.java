@@ -118,6 +118,11 @@ public class Controller {
 
     private static Controller controller;
 
+    /**
+     * The method initializes fundamental functions of program.
+     * Sets start-up look and listens thread to calls methods.
+     */
+
     @FXML
     public void initialize() {
         controller = this;
@@ -144,6 +149,10 @@ public class Controller {
         thrustSlider.setOnKeyPressed(event -> handleMovementKeys(event));
     }
 
+    /**
+     * The method loads Json file witch lists of records
+     * and sets its in record table.
+     */
     private void loadJsonToTable() {
         File jsonFile = new File(playersJsonPath);
         if (!jsonFile.exists()) {
@@ -156,6 +165,9 @@ public class Controller {
         sortPlayers();
     }
 
+    /**
+     * The method initializes record Table and its look.
+     */
     private void initializeTable() {
         String color = "-fx-background-color:  #d0b1b1";
 
@@ -168,6 +180,9 @@ public class Controller {
         nameColumn.setStyle(color);
     }
 
+    /**
+     * The method updates height and velocity labels.
+     */
     private void updateLabelsValues() {
         Platform.runLater(() -> {
             if (rocketParameters.size() != 0) {
@@ -180,6 +195,9 @@ public class Controller {
         });
     }
 
+    /**
+     * The method updates fuel bar and fuel label.
+     */
     private void updateFuelProgress() {
         Platform.runLater(() -> {
             if (rocketParameters.size() != 0) {
@@ -198,11 +216,20 @@ public class Controller {
         });
     }
 
+    /**
+     * The method sets Mi to integrator depending on slider value.
+     */
     private void setThrustOfRocket() {
         Platform.runLater(() -> {
             rocketThread.setMi((thrustSlider.getValue() / 100) * fullPower);
         });
     }
+
+    /**
+     * The method starts new thread witch calculates euler integrator.
+     * Sets thrust slider and fuel bar and supports labels.
+     * @param event - ActionEvent which listens that player Click START button.
+     */
 
     @FXML
     void playGameBtn(ActionEvent event) {
@@ -223,6 +250,12 @@ public class Controller {
         nameTextField.setTranslateX(0);
     }
 
+    /**
+     * The methods opens new window with lineChart next to Main Window.
+     * It draws graph height in function of speed.
+     * @param event - ActionEvent which listens that player Click STATISTIC button.
+     * @throws Exception - throws exception of load new controller
+     */
     @FXML
     void pressStatWindowBtn(ActionEvent event) throws Exception {
 
@@ -246,11 +279,21 @@ public class Controller {
 
     }
 
+    /**
+     * The method sets image of rocket depending on slider value
+     */
+
     private void setRocketImage() {
         Platform.runLater(() -> {
             rocketImage.setImage(rocketAnimation.getImage((thrustSlider.getValue())));
         });
     }
+
+    /**
+     * The method clears arraylists and observablelists of previous game.
+     * Starts new thread, resets fuelBar.
+     * @param event - ActionEvent which listens that player Click RESTART button.
+     */
 
     @FXML
     void restartGameBtn(ActionEvent event) {
@@ -270,6 +313,9 @@ public class Controller {
 
     }
 
+    /**
+     * The method sets EndLayout and values of labels after landing on moon.
+     */
     public void onGroundReached() {
         Platform.runLater(() -> {
 
@@ -290,12 +336,20 @@ public class Controller {
         });
     }
 
+    /**
+     * The method adds name and score of player witch successfully landed.
+     * @param event - ActionEvent which listens that player Click ADD button.
+     */
     @FXML
     void addPlayer(ActionEvent event) {
         String playerName = nameTextField.textProperty().getValue();
         players.add(new Player(playerName, Math.round(finalFuelMass * 100.0) / 100.0));
         sortPlayers();
     }
+
+    /**
+     * The method sort scores of players which is better.
+     */
 
     private void sortPlayers() {
         Collections.sort(players);
@@ -305,6 +359,10 @@ public class Controller {
         }
         leadersTable.refresh();
     }
+
+    /**
+     * The method sets Layouts of Labels, Buttons and Grid depending on Start or End game.
+     */
 
     public void setEndWindow() {
         playBackground.setLayoutX(0);
@@ -317,6 +375,11 @@ public class Controller {
         endHeadSpeedLabel.setTranslateX(299);
         endSpeedLabel.setTranslateX(299);
     }
+
+    /**
+     * The method sets value of thrustSlider by pushing button by player.
+     * @param event - HeyEvent which listens that player push W,S or arrows UP, DOWN button on keyboard.
+     */
 
     public void handleMovementKeys(KeyEvent event) {
 
@@ -337,10 +400,18 @@ public class Controller {
         event.consume();
     }
 
+    /**
+     *      * @return object controller of Controller class.
+     */
+
     public static Controller getController() {
         return controller;
     }
 
+
+    /**
+     * THe metod closes the application and saves the lists of players records.
+     */
     @FXML
     public void exitApplication() {
         System.out.println("Exit App");

@@ -5,6 +5,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.image.Image;
 import rocket_app.rocket.RocketImage;
 
+/**
+ * Class for animating graphic interface of application.
+ */
+
 public class RocketAnimation {
 
 
@@ -15,6 +19,11 @@ public class RocketAnimation {
     private double rocketHeight = 1;
     private AnimationTimer animationTimer;
 
+    /**
+     * @param mainGridPane - GridPane which displays main background image
+     * @param minorGridPane -  GridPane which displays minor background image
+     * @param groundZeroPane - GridPane which displays image of landing place
+     */
 
     public RocketAnimation(GridPane mainGridPane, GridPane minorGridPane, GridPane groundZeroPane) {
         this.mainGridPane = mainGridPane;
@@ -23,6 +32,10 @@ public class RocketAnimation {
 
     }
 
+    /**
+     * This method is called by every frame of game.
+     * It calls methods which moves grids.
+     */
 
     public void gameLoop() {
 
@@ -36,6 +49,10 @@ public class RocketAnimation {
         };
         animationTimer.start();
     }
+
+    /**
+     *The method which moves background grids with speed depending on RocketSpeed
+     */
 
     private void moveBackground() {
 
@@ -64,13 +81,27 @@ public class RocketAnimation {
 
     }
 
+    /**
+     * The method set rocketSpeed
+     * @param rocketSpeed - double value of speed
+     */
+
     public void setRocketSpeed(double rocketSpeed) {
         this.rocketSpeed = rocketSpeed;
     }
 
+    /**
+     * The method set rocketHeight
+     * @param rocketHeight - double value of height
+     */
     public void setRocketHeight(double rocketHeight) {
         this.rocketHeight = rocketHeight;
     }
+
+
+    /**
+     *The method which moves ground grids vertically depending on rocketHeight
+     */
 
     private void moveGroundZero() {
 
@@ -85,11 +116,20 @@ public class RocketAnimation {
         groundZeroPane.setLayoutY(rocketHeight * 10);
     }
 
+    /**
+     * Calling this method stops animation, by set Layouts on start positions.
+     */
     private void stopBackground() {
         mainGridPane.setLayoutY(0);
         minorGridPane.setLayoutY(-400);
         animationTimer.stop();
     }
+
+    /**
+     * The method is responsible for changing images.
+     * @param power - double values in the range of 0-100.
+     * @return mainRocket - image depending on power.
+     */
 
     public Image getImage(double power){
 

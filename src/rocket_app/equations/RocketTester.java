@@ -4,6 +4,9 @@ import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import org.apache.commons.math3.ode.nonstiff.EulerIntegrator;
 
+/**
+ * The class witch tests implementation of equations.
+ */
 public class RocketTester {
 
     public static void main(String[] args) {
